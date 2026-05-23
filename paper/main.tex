@@ -1,0 +1,60 @@
+\documentclass[11pt]{article}
+
+\usepackage[review]{acl}
+
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+% \usepackage{inconsolata} % unavailable locally; re-enable for submission
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+
+\title{The Likert Blindspot: Measurement-Mode Divergence\\in LLM Judge Style Evaluation}
+
+\author{Anonymous}
+
+\begin{document}
+\maketitle
+
+\input{sections/abstract}
+
+\input{sections/introduction}
+
+\input{sections/related_work}
+
+\input{sections/method}
+
+\input{sections/experiments}
+
+\input{sections/conclusion}
+
+\section*{Limitations}
+\label{sec:limitations}
+
+\textbf{Residual confounding.}
+The NLI gate blocks content changes but cannot block quality perception shifts mediated by style itself.
+Although formality effects survive logistic adjustment (OR $= 2.32$, $p = 0.006$), residual confounding is not fully eliminated; definitive resolution requires human ground-truth comparison of Likert and pairwise judgments on identical pairs.
+
+\textbf{Detection vs.\ amplification.}
+The Blindspot may partly reflect pairwise format amplification \citep{jeong2025comparative} rather than pure detection.
+Six controls bound this risk (\S\ref{sec:amplification}), but we cannot precisely quantify the amplification factor without a ground-truth bias magnitude.
+
+\textbf{Scope.}
+CSD applies only to surface-level axes whose rewrites preserve semantic content; a tone pilot (assertive $\to$ hedging) was rejected by the NLI gate.
+Primary analyses use LLMBar ($n = 100$) with five judges; generalization to additional axes, benchmarks, and judges remains open.
+
+\section*{Code and Data}
+Code and data will be released upon acceptance.
+
+\bibliography{references}
+
+\input{sections/appendix}
+
+\end{document}
