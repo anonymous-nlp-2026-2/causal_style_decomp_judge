@@ -429,6 +429,35 @@ Cohen's $d$ & $d = 0.036$ & --- & No \\
 \end{tabular}
 \end{table}
 
+\subsection{Scaled Replication ($n = 330$)}
+\label{app:verb_n355}
+
+Table~\ref{tab:verb_n355} reports verbosity results at $n = 330$ (from 355 generated pairs, 330 passing NLI gate at $\tau = 0.90$), replicating across all five judges.
+The Blindspot partially resolves for judges with strong style effects: Qwen3-32B ($d = .149$, $p < .001$) and Llama-70B ($d = .160$, $p < .001$) now reach Likert significance, consistent with the power curve (Figure~\ref{fig:power_curve}) predicting ${\sim}40\%$ power at $n = 330$ for $d \approx 0.15$.
+However, three judges maintain the Blindspot: GPT-4o ($d = {-}.026$, NS), Gemini-2.5-Flash ($d = .087$, borderline), and Claude Sonnet~4 ($d = .032$, NS).
+The magnitude discrepancy persists even where Likert reaches significance: BT detects 73--76\% win rates while Likert yields $d \approx 0.15$, confirming the attenuation interpretation.
+
+GEE Style OR shrinks substantially from the $n = 86$ estimates (Qwen3: $13.10 \to 3.83$; Llama: $8.21 \to 4.01$), consistent with small-sample upward bias at $n = 86$.
+
+\begin{table}[h]
+\centering
+\small
+\caption{Verbosity scaled replication ($n = 330$). Blindspot partially resolves for strong effects (Qwen3, Llama-70B) but persists for weaker-effect judges (GPT-4o, Claude).}
+\label{tab:verb_n355}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Judge & BT $P(\text{V})$ & [95\% CI] & Likert $d$ ($p$) & Blindspot? \\
+\midrule
+Qwen3-32B & .733$^{***}$ & [.696, .770] & .149 (.001) & No \\
+Llama-70B & .759$^{***}$ & [.722, .793] & .160 ({<}.001) & No \\
+GPT-4o & .590$^{***}$ & [.544, .635] & $-$.026 (.813) & $\dagger$ \\
+Gemini-2.5 & .678$^{***}$ & [.638, .717] & .087 (.021) & $\dagger$ \\
+Claude S4 & .608$^{***}$ & [.567, .649] & .032 (.317) & $\dagger$ \\
+\bottomrule
+\multicolumn{5}{p{0.95\columnwidth}}{\footnotesize $^{***}$\,$p < 0.001$. $\dagger$ marks Blindspot cases (BT significant, Likert $d$ non-significant at $\alpha = 0.05$ by Wilcoxon). GPT-4o column uses GPT-5.4 as the API-judge replacement. Likert $p$ values from Wilcoxon signed-rank test on non-zero differences.}
+\end{tabular}
+\end{table}
+
 \section{100-Point Continuous Likert Scale}
 \label{app:likert100}
 
