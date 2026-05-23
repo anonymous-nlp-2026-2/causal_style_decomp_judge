@@ -87,7 +87,7 @@ legend_elements = [
 ]
 ax.legend(handles=legend_elements, loc='lower right', frameon=False, fontsize=9)
 
-out = 'artifacts/
+out = '/root/causal_style_decomp_judge/artifacts/figures/paper/forest_plot.pdf'
 fig.savefig(out)
 plt.close()
 print(f"Saved: {out}")

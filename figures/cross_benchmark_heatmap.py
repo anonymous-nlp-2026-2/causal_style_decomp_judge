@@ -40,7 +40,7 @@ sig_levels = [
     # Gemini-2.5-Flash
     [1, 3, -1, -1, -1, -1],
     # Claude Sonnet 4
-    [0, 0, -1, 2, 2, 3],
+    [0, 0, -1, 3, 3, 3],
 ]
 
 row_labels = ['GPT-4o', 'Qwen3-32B', 'Llama-3.3-70B', 'Gemini-2.5-Flash', 'Claude Sonnet 4']

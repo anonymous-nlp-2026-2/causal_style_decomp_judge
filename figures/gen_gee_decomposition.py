@@ -59,14 +59,15 @@ bars_vs = ax.bar(verb_positions - bar_width/2, verb_style, bar_width,
                  color=c_style, edgecolor='white', linewidth=0.3,
                  label='Style OR', zorder=3)
 bars_vo = ax.bar(verb_positions + bar_width/2, verb_orig, bar_width,
-                 color=c_orig, edgecolor='white', linewidth=0.3,
-                 label='Orig OR', zorder=3)
+                 color=c_orig, edgecolor='#666666', linewidth=0.5,
+                 hatch='///', label='Orig OR', zorder=3)
 
 # Formality
 ax.bar(form_positions - bar_width/2, form_style, bar_width,
        color=c_style, edgecolor='white', linewidth=0.3, zorder=3)
 ax.bar(form_positions + bar_width/2, form_orig, bar_width,
-       color=c_orig, edgecolor='white', linewidth=0.3, zorder=3)
+       color=c_orig, edgecolor='#666666', linewidth=0.5,
+       hatch='///', zorder=3)
 
 # --- Log scale ---
 ax.set_yscale('log')
