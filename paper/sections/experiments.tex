@@ -46,8 +46,10 @@ Claude & Form.\ & .562 & $-$.021 (.721) & --- \\
 Claude & Verb.\ & .541 & $-$.039 (.743) & --- \\
 \bottomrule
 \multicolumn{5}{l}{\footnotesize $^{***}$ $p < 0.001$;\; $^{*}$ $p < 0.05$ (Holm-adj.\ for primary; raw for $\dagger_{\text{c}}$).}\\
-\multicolumn{5}{l}{\footnotesize $\dagger$: Blindspot;\; ---: neither;\; $\dagger_{\text{e}}$: expl.;\; $\dagger_{\text{c}}$: confirm.}\\
-\multicolumn{5}{l}{\footnotesize $^b$ Scaled replication ($n = 355$). Negative $d$: styled variants scored lower.}\\
+\multicolumn{5}{l}{\footnotesize $\dagger$: Blindspot (BT sig., Likert n.s.);\; ---: neither sig.;\; $_{\text{e}}$: expl.;\; $_{\text{c}}$: confirm.}\\
+\multicolumn{5}{l}{\footnotesize $^b$ Scaled replication ($n = 355$). Qwen3 serves as both rewriter and judge;}\\
+\multicolumn{5}{l}{\footnotesize independent GPT-4o rewriter yields 22\% lower Style OR (App.~\ref{app:rewriter_indep}).}\\
+\multicolumn{5}{l}{\footnotesize Negative $d$: styled variants scored lower.}\\
 \multicolumn{5}{l}{\footnotesize Form.\ direction asymmetry: formal-origin 78.8\% vs.\ casual-origin 54.5\%;}\\
 \multicolumn{5}{l}{\footnotesize GEE-adj.\ Style OR$=$2.58 ($p{=}.002$; App.~\ref{app:direction}).}
 \end{tabular}
@@ -82,6 +84,7 @@ RATE and CSD are complementary (Likert ATE vs.\ forced-choice BT); the Blindspot
 Seven measurement methods applied to the same formality data confirm the Blindspot is not test-specific: both pairwise methods detect the formality preference while all five Likert-based methods fail regardless of scaling assumption---interval (ATE $t$-test), ordinal (proportional odds), or nonparametric (Wilcoxon)---with verbosity showing the same pattern (Table~\ref{tab:sensitivity}, Appendix~\ref{app:sensitivity}; verbosity replication in Appendix~\ref{app:verb_sensitivity}).
 
 Figure~\ref{fig:power_curve} plots detection probability at observed effect magnitudes (not post-hoc power; cf.\ \citealt{hoenig2001abuse}): across six cells, Likert requires $4$--$206\times$ the current $n$ ($336$--$27{,}159$ pairs; Appendix~\ref{app:power_analysis}) to detect effects BT identifies at $p < 0.001$ with $n \leq 100$.
+Under format equivalence, observing 8/8 primary cells as Blindspot has binomial probability $p = 0.004$; non-tie concordance (76.6\%, $p < .001$; \S\ref{sec:likert_pairwise}) provides a complementary formal test of format divergence.
 \paragraph{Interpreting the divergence.}
 The measurement-mode divergence admits three non-exclusive interpretations: (a)~\emph{Likert attenuation}---tie inflation and residual signal loss reduce Likert sensitivity below detection thresholds; (b)~\emph{pairwise amplification}---forced-choice comparison inflates micro-preferences into apparent biases \citep{jeong2025comparative}; (c)~\emph{construct divergence}---the two formats measure different constructs (absolute quality vs.\ ordinal preference; \citealt{tripathi2025pairwise}).
 Six experimental controls (\S\ref{sec:amplification}) bound the amplification factor but cannot eliminate it; the attenuation evidence ($d \to 0$ at $n = 355$) is necessary but not sufficient for causal identification.
@@ -106,7 +109,7 @@ For formality, both style preference and quality correlation contribute (a condi
 \begin{table}[t]
 \centering
 \small
-\caption{GEE conditional decomposition (exchangeable correlation). Style OR: style-direction odds ratio; Orig OR: original-preference odds ratio (OR $> 1$ favors original). $n{=}88$ ORs are upper-bound estimates; scaled replication ($^a$, $n = 355$) shows ${\sim}49\%$ shrinkage \citep{nemes2009bias}. Verbosity is style-dominated; formality shows varying confound structure.}
+\caption{GEE conditional decomposition (exchangeable correlation). Style OR: style-direction odds ratio; Orig OR: original-preference odds ratio (OR $> 1$ favors original). $n{=}88$ ORs are upper-bound estimates; scaled replications ($n = 330$--$355$) show $49$--$72\%$ shrinkage \citep{nemes2009bias}. Verbosity is style-dominated; formality shows varying confound structure.}
 \label{tab:gee}
 \begin{tabular}{@{}llclc@{}}
 \toprule
@@ -133,7 +136,7 @@ Llama-70B reg.\ & 3.33 & .0003 & 3.07 & .0008 \\
 \end{tabular}
 \end{table}
 
-The confound structure is consistent across all four target judges for verbosity (style-dominated: Style OR $8.2$--$13.1$, Orig OR $0.38$--$0.49$); formality is conditionally style-driven in three judges but originality-dominated in Gemini; register is judge-dependent (Figure~\ref{fig:gee_decomp}).
+The confound structure is consistent across all four target judges for verbosity (style-dominated at $n = 88$: Style OR $8.2$--$13.1$, Orig OR $0.38$--$0.49$; confirmed at $n = 330$: Style OR $2.5$--$4.0$); formality is conditionally style-driven in three judges but originality-dominated in Gemini; register is judge-dependent (Figure~\ref{fig:gee_decomp}).
 Same-style double-rewrite controls confirm a rewriting artifact (Appendix~\ref{app:artifact_control}), absorbed by GEE's originality term.
 
 \begin{figure}[t]
@@ -145,7 +148,9 @@ Same-style double-rewrite controls confirm a rewriting artifact (Appendix~\ref{a
 
 \paragraph{Sample-size sensitivity.}
 At $n = 355$, the Qwen3-32B formality Style OR drops from $4.20$ to $2.15$ $[1.46, 3.16]$ ($-49\%$), consistent with small-sample upward bias \citep{nemes2009bias}; the log-OR CI contracts by $1.94\times$ (close to $\sqrt{355/88} \approx 2.01$), and the regime classification remains stable---conditional at both sample sizes (both effects significant; Orig OR $4.70 \to 4.99$).
-Verbosity Style ORs ($8$--$13$) would remain style-dominated even under ${\sim}50\%$ shrinkage (projected $4$--$6.5$, still ${\gg}$ Orig OR ${<}1$).
+Verbosity $n = 330$ replication confirms 51--72\% GEE shrinkage (Style OR $2.5$--$4.0$; Appendix~\ref{app:verb_n355}), preserving the style-dominated classification.
+Likert begins detecting the strongest verbosity effects at this $n$ (two judges reach significance), reframing the Blindspot as a $3$--$4\times$ efficiency gap rather than absolute failure.
+GPT-4o is the sole judge without large-sample validation on either axis; projected formality Style OR ${\sim}1.3$ (CI may include $1.0$).
 
 \subsection{Cross-Judge and Cross-Axis Replication}
 \label{sec:cross_judge}
@@ -157,7 +162,7 @@ Verbosity provides the strongest Blindspot: all four target judges show consiste
 GEE confirms style dominance (Style OR $8.2$--$13.1$, all $p < .0001$; Orig OR $0.38$--$0.49$; Table~\ref{tab:gee}).
 Both rewriting directions favor verbose responses (90.7\%/80.6\%); length-controlled Style OR is unchanged ($<$2\%), and an independent GPT-4o rewriter bounds evaluator-producer overlap to a 22\% reduction (Appendix~\ref{app:rewriter_indep}).
 Length-controlled regression confirms 60\% of the FK cross-axis effect is mediated by sentence length (Sobel $z = 2.15$, $p = .031$); GEE with FK grade as covariate confirms formality effects survive readability control in two of three judges (Appendix~\ref{app:fk_length}).
-For formality, FK grade lies on the causal pathway $S \to \text{FK} \to Y$: the intervention directly alters readability, making FK a mediator rather than a confounder \citep{pearl2009causality}. Controlling for the mediator yields the direct effect (GPT-4o OR $= 2.15$); the total effect (OR $= 2.70$) includes the FK-mediated component.
+Under our assumed causal structure (Figure~\ref{fig:dag}), FK acts as a plausible mediator on the formality pathway $S \to \text{FK} \to Y$ \citep{pearl2009causality}, yielding a direct-effect Style OR of $2.15$ for GPT-4o; the total effect (OR $= 2.70$) includes the FK-mediated component. An alternative structure cannot be statistically distinguished; we present both interpretations.
 
 These per-axis patterns selectively replicate across benchmarks (6/24 possible cells; Figure~\ref{fig:cross_bench_heatmap}), targeting the strongest effects: Llama-70B formality on AlpacaEval (BT 75.6\%, Style OR $= 7.64$) is strong enough for Likert detection ($\ddagger$ rows), confirming the severity spectrum.
 

@@ -45,10 +45,12 @@ Although formality effects survive logistic adjustment (OR $= 2.32$, $p = 0.006$
 \textbf{Detection vs.\ amplification.}
 The Blindspot may partly reflect pairwise format amplification \citep{jeong2025comparative} rather than pure detection.
 Six controls bound this risk (\S\ref{sec:amplification}), but we cannot precisely quantify the amplification factor without a ground-truth bias magnitude.
+Qwen3-32B serves as both rewriter and judge; an independent GPT-4o rewriter yields 22\% lower Style OR, confirming the Blindspot persists but effect-size precision varies with rewriter choice (Appendix~\ref{app:rewriter_indep}).
 
 \textbf{Scope.}
 CSD applies only to surface-level axes whose rewrites preserve semantic content; a tone pilot (assertive $\to$ hedging) was rejected by the NLI gate.
 Primary analyses use LLMBar ($n = 100$) with five judges; generalization to additional axes, benchmarks, and judges remains open.
+Style sensitivity may vary across model versions (\S\ref{sec:nli_validation}), and GEE odds-ratio estimates require large-sample validation to converge from initial upper-bound estimates ($49$--$72\%$ shrinkage at $n = 330$--$355$).
 
 \section*{Code and Data}
 Code and data will be released upon acceptance.

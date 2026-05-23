@@ -437,7 +437,11 @@ The Blindspot partially resolves for judges with strong style effects: Qwen3-32B
 However, three judges maintain the Blindspot: GPT-4o ($d = {-}.026$, NS), Gemini-2.5-Flash ($d = .087$, borderline), and Claude Sonnet~4 ($d = .032$, NS).
 The magnitude discrepancy persists even where Likert reaches significance: BT detects 73--76\% win rates while Likert yields $d \approx 0.15$, confirming the attenuation interpretation.
 
-GEE Style OR shrinks substantially from the $n = 86$ estimates (Qwen3: $13.10 \to 3.83$; Llama: $8.21 \to 4.01$), consistent with small-sample upward bias at $n = 86$.
+GEE conditional decomposition at $n = 330$ confirms substantial shrinkage from $n = 88$ estimates, consistent with more extreme initial estimates producing larger corrections \citep{nemes2009bias}: Qwen3 $13.10 \to 3.83$ ($-71\%$), Llama $8.21 \to 4.01$ ($-51\%$), Gemini $8.98 \to 2.52$ ($-72\%$).
+Despite shrinkage, verbosity remains style-dominated for these three judges (Style OR $2.5$--$4.0$, all $p < .001$; Orig OR $0.52$--$0.69$).
+Two judges show non-significant style effects at $n = 330$: GPT-4o (Style OR $= 1.06$, $p = .665$) and Claude (Style OR $= 1.22$, $p = .134$), with their elevated BT reflecting originality rather than style preference (Orig OR $1.96$ and $1.69$ respectively).
+As predicted by the power analysis (Figure~\ref{fig:power_curve}), Likert begins detecting the strongest effects at $n \approx 330$ (Qwen3 $d = .15$, $p < .001$; Llama $d = .16$, $p < .001$), while three judges maintain the Blindspot (GPT-4o $d = {-}.03$, NS; Claude $d = .03$, NS; Gemini borderline $d = .09$, $p = .02$ by Wilcoxon but $p = .11$ by $t$-test).
+The efficiency gap---Likert requiring $3$--$4\times$ the sample size pairwise needs---rather than absolute failure, is the practical concern.
 
 \begin{table}[h]
 \centering
@@ -464,7 +468,8 @@ Claude S4 & .608$^{***}$ & [.567, .649] & .032 (.317) & $\dagger$ \\
 To test whether the Blindspot reflects integer-scale granularity rather than a paradigm difference between absolute and relative evaluation, we replicate the formality experiment using a 100-point continuous scale ($1$--$100$) with three judges (Table~\ref{tab:likert100}).
 All three judges remain non-significant (all $p > 0.15$).
 Tie rates decrease substantially with finer granularity (1--10 scale: 58--73\%; 1--100 scale: 40--66\%), yet ATE remains non-significant, confirming the gap reflects measurement mode rather than scale granularity \citep{preston2000scale}.
-Judges differ markedly in effective granularity usage: GPT-4o clusters scores into ${\sim}5$ distinct bins, Qwen3-32B uses ${\sim}20$, and Llama-70B exploits $50{+}$---yet none resolves the Blindspot.
+Judges differ markedly in effective granularity usage: GPT-4o clusters scores into ${\sim}5$ distinct bins (modes at 70, 75, 80), Qwen3-32B uses ${\sim}20$ distinct values spanning $45$--$95$, and Llama-70B exploits $50{+}$ unique scores with near-uniform coverage---yet none resolves the Blindspot.
+Score distributions are unimodal and right-skewed for all three judges, with medians in the $72$--$80$ range; the score \emph{difference} distributions (original minus rewrite) are symmetric around zero, confirming no net directional shift under Likert scoring.
 
 \begin{table}[h]
 \centering
@@ -539,7 +544,7 @@ Verb.\ & GPT-4o & .167 [.084, .262] & ${<}.0001$ \\
 \paragraph{Models and APIs.}
 Style-controlled rewriting uses Qwen3-32B (temperature $0.7$, top-$p$ $0.9$).
 Target judges: GPT-4o (\texttt{gpt-4o-2024-08-06}, accessed April--May 2026), Qwen3-32B (locally hosted), Llama-3.3-70B (locally hosted via vLLM).
-Low-sensitivity reference: Claude Sonnet 4 (\texttt{claude-sonnet-4-20250514}, accessed May 2026).
+Claude Sonnet 4 (\texttt{claude-sonnet-4-20250514}, accessed May 2026) provides discriminative validity evidence with benchmark-dependent sensitivity.
 All judge calls use temperature $0$ and $\texttt{max\_tokens} = 2048$.
 
 \paragraph{NLI gate.}
@@ -547,7 +552,7 @@ Content preservation is verified using DeBERTa-v3-large \citep{he2021debertav3} 
 Bidirectional entailment is applied for formality and register; direction-aware entailment for verbosity (Section~\ref{sec:nli_gate}).
 
 \paragraph{Statistical methods.}
-Bradley-Terry parameters are estimated via spectral initialization followed by minorization-maximization \citep{hunter2004mm} using the \texttt{choix} Python library (default regularization).
+Bradley-Terry parameters are estimated via spectral initialization followed by minorization-maximization \citep{hunter2004mm} using the \texttt{choix} Python library (default L2 regularization $\alpha = 10^{-6}$); varying $\alpha$ from $10^{-6}$ to $1.0$ changes all BT probabilities by ${<}0.002$.
 All bootstrap CIs use 10{,}000 pair-level resamples with seed $42$.
 GEE models use exchangeable working correlation with robust (sandwich) standard errors via \texttt{statsmodels} (Section~\ref{sec:direction}; diagnostics in Appendix~\ref{app:gee_diagnostics}).
 
@@ -683,7 +688,9 @@ This does not affect the primary validation target, which concerns content prese
 \section{Cross-Benchmark Replication}
 \label{app:cross_bench}
 
-Table~\ref{tab:cross_bench} reports cross-benchmark replication results on AlpacaEval and MT-Bench for selected configurations targeting the strongest effects from the primary LLMBar analysis.
+Table~\ref{tab:cross_bench} reports cross-benchmark replication results on AlpacaEval and MT-Bench.
+Selection criterion: we targeted the six judge$\times$axis cells with the largest LLMBar BT effects (BT $\geq .63$, all $p < .001$), prioritizing cells where the Blindspot was strongest.
+The remaining 18/24 cells (3 benchmarks $\times$ 4 target judges $\times$ 2 axes, minus 6 tested) were not evaluated; generalization to weaker-effect configurations remains open.
 
 \begin{table}[h]
 \centering
