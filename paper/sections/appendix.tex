@@ -432,21 +432,21 @@ Cohen's $d$ & $d = 0.036$ & --- & No \\
 \subsection{Scaled Replication ($n = 330$)}
 \label{app:verb_n355}
 
-Table~\ref{tab:verb_n355} reports verbosity results at $n = 330$ (from 355 generated pairs, 330 passing NLI gate at $\tau = 0.90$), replicating across all five judges.
+Table~\ref{tab:verb_n355} reports verbosity results at $n = 330$ (from 355 generated pairs, 330 passing NLI gate at $\tau = 0.90$), replicating across four judges (GPT-4o was not re-scored at this scale).
 The Blindspot partially resolves for judges with strong style effects: Qwen3-32B ($d = .149$, $p < .001$) and Llama-70B ($d = .160$, $p < .001$) now reach Likert significance, consistent with the power curve (Figure~\ref{fig:power_curve}) predicting ${\sim}40\%$ power at $n = 330$ for $d \approx 0.15$.
-However, three judges maintain the Blindspot: GPT-4o ($d = {-}.026$, NS), Gemini-2.5-Flash ($d = .087$, borderline), and Claude Sonnet~4 ($d = .032$, NS).
+However, two judges maintain the Blindspot: Gemini-2.5-Flash ($d = .087$, borderline) and Claude Sonnet~4 ($d = .032$, NS).
 The magnitude discrepancy persists even where Likert reaches significance: BT detects 73--76\% win rates while Likert yields $d \approx 0.15$, confirming the attenuation interpretation.
 
 GEE conditional decomposition at $n = 330$ confirms substantial shrinkage from $n = 88$ estimates, consistent with more extreme initial estimates producing larger corrections \citep{nemes2009bias}: Qwen3 $13.10 \to 3.83$ ($-71\%$), Llama $8.21 \to 4.01$ ($-51\%$), Gemini $8.98 \to 2.52$ ($-72\%$).
 Despite shrinkage, verbosity remains style-dominated for these three judges (Style OR $2.5$--$4.0$, all $p < .001$; Orig OR $0.52$--$0.69$).
-Two judges show non-significant style effects at $n = 330$: GPT-4o (Style OR $= 1.06$, $p = .665$) and Claude (Style OR $= 1.22$, $p = .134$), with their elevated BT reflecting originality rather than style preference (Orig OR $1.96$ and $1.69$ respectively).
-As predicted by the power analysis (Figure~\ref{fig:power_curve}), Likert begins detecting the strongest effects at $n \approx 330$ (Qwen3 $d = .15$, $p < .001$; Llama $d = .16$, $p < .001$), while three judges maintain the Blindspot (GPT-4o $d = {-}.03$, NS; Claude $d = .03$, NS; Gemini borderline $d = .09$, $p = .02$ by Wilcoxon but $p = .11$ by $t$-test).
+Claude shows a non-significant style effect at $n = 330$ (Style OR $= 1.22$, $p = .134$), with its elevated BT reflecting originality rather than style preference (Orig OR $= 1.69$).
+As predicted by the power analysis (Figure~\ref{fig:power_curve}), Likert begins detecting the strongest effects at $n \approx 330$ (Qwen3 $d = .15$, $p < .001$; Llama $d = .16$, $p < .001$), while two judges maintain the Blindspot (Claude $d = .03$, NS; Gemini borderline $d = .09$, $p = .02$ by Wilcoxon but $p = .11$ by $t$-test).
 The efficiency gap---Likert requiring $3$--$4\times$ the sample size pairwise needs---rather than absolute failure, is the practical concern.
 
 \begin{table}[h]
 \centering
 \small
-\caption{Verbosity scaled replication ($n = 330$). Blindspot partially resolves for strong effects (Qwen3, Llama-70B) but persists for weaker-effect judges (GPT-4o, Claude).}
+\caption{Verbosity scaled replication ($n = 330$, four judges; GPT-4o not re-scored). Blindspot partially resolves for strong effects (Qwen3, Llama-70B) but persists for weaker-effect judges (Gemini, Claude).}
 \label{tab:verb_n355}
 \begin{tabular}{@{}lcccc@{}}
 \toprule
@@ -454,7 +454,6 @@ Judge & BT $P(\text{V})$ & [95\% CI] & Likert $d$ ($p$) & Blindspot? \\
 \midrule
 Qwen3-32B & .733$^{***}$ & [.696, .770] & .149 (.001) & No \\
 Llama-70B & .759$^{***}$ & [.722, .793] & .160 ({<}.001) & No \\
-GPT-4o & .590$^{***}$ & [.544, .635] & $-$.026 (.813) & $\dagger$ \\
 Gemini-2.5 & .678$^{***}$ & [.638, .717] & .087 (.021) & $\dagger$ \\
 Claude S4 & .608$^{***}$ & [.567, .649] & .032 (.317) & $\dagger$ \\
 \bottomrule
