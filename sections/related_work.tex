@@ -6,15 +6,17 @@ Two lines of work motivate our approach: interventional methods for diagnosing j
 \paragraph{Interventional Approaches to Judge Bias}
 Text-based interventional methods have a growing methodological foundation \citep{feder2021causalm,wu2021polyjuice,feder2022causal}.
 \citet{reber2025rate} propose RATE, a framework that rewrites model outputs along style attributes using imperfect counterfactuals and measures the causal effect on reward model scores via Likert-scale Average Treatment Effect (ATE).
-RATE applies a correction term for rewriting imperfections, but its reliance on Likert ATE is a vulnerability: our experiments show 60\% of style-transformed pairs receive identical integer scores under Likert, yielding non-significant effects that pairwise comparison detects at $p = 0.006$.
-CSD differs from RATE in targeting individual style axes, measuring bias through position-controlled pairwise comparison, and enforcing content preservation via NLI gating.
+RATE applies a correction term to account for rewriting imperfections, but its reliance on Likert ATE as the primary metric is a vulnerability: our experiments show that Likert scoring exhibits a ceiling effect in which 60\% of style-transformed pairs receive identical integer scores, yielding non-significant Likert effects ($p = 0.905$) for the same interventions that pairwise comparison detects at $p = 0.006$.
+Whether this format sensitivity extends to RATE's broader attribute space is an open question; our results motivate independent validation of Likert-based effect estimates alongside pairwise measures.
+CSD differs from RATE in three respects: it targets individual style axes rather than general attributes, it measures bias through position-controlled pairwise comparison rather than Likert ATE, and it enforces content preservation via NLI entailment gating rather than post-hoc correction for imperfect rewrites.
 \citet{counterfactual2025rhetorical} adopt a similar interventional design at persona-level granularity, whereas CSD intervenes on specific style axes with position control.
 
 \paragraph{Measurement Sensitivity in NLG Evaluation}
 The distinction between ordinal and interval measurement dates to \citet{stevens1946theory}, whose taxonomy of scales remains foundational.
 The superiority of pairwise comparison over rating scales has been established since \citet{thurstone1927law}; \citet{carterette2008here} confirm this for information retrieval, \citet{preston2000scale} and \citet{simms2019does} show that scale granularity affects reliability, and \citet{krosnick1999survey} documents satisficing behavior that may compound the tie inflation we observe.
-Within NLP, \citet{amidei2019likert} review Likert scales \citep{likert1932technique} in NLG evaluation, and \citet{novikova2018rankme} confirm that forced-choice methods detect quality differences that rating scales miss.
-Our contribution is the first controlled quantification of this per-axis sensitivity gap in the LLM judge setting.
+Within NLP, \citet{amidei2019likert} review the use of rating and Likert scales \citep{likert1932technique} in NLG evaluation, identifying inconsistencies in scale design and reporting that compromise cross-study comparability.
+\citet{kiritchenko2017bws} and \citet{novikova2018rankme} confirm that forced-choice methods detect quality differences that rating scales miss; \citet{deutsch-etal-2023-ties} show that tie handling directly affects metric sensitivity, consistent with our tie-inflation finding.
+Our contribution is the first controlled quantification of this per-axis sensitivity gap in the LLM judge setting, identifying the two-layer mechanism (tie inflation plus residual signal attenuation) that drives it.
 
 \paragraph{Style Bias Detection and Mitigation}
 The foundational LLM-as-judge framework \citep{zheng2023judging} introduced MT-Bench and Chatbot Arena and documented position bias in pairwise evaluation.

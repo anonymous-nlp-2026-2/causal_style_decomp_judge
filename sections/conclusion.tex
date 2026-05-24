@@ -1,6 +1,9 @@
 \section{Conclusion}
 \label{sec:conclusion}
-CSD yields two findings: the \emph{Likert Blindspot}---divergent pairwise/Likert verdicts across four judges, three benchmarks, and two axes---and per-axis confound structures via GEE (verbosity style-dominated, formality quality-confounded); concordance ($p < .001$) favors attenuation over divergence.
+CSD yields two findings: the \emph{Likert Blindspot}---divergent pairwise/Likert verdicts (8/8 primary, 6/24 cross-benchmark cells; $d \!\to\! 0$ at $n{=}355$)---and per-axis confound structures via GEE (verbosity style-dominated, formality conditional, register judge-dependent); concordance ($p < .001$) favors attenuation over divergence.
 These results carry a practical recommendation: style-bias audits that rely exclusively on Likert scoring risk false negatives at sample sizes typical of current benchmarks ($n < 200$).
 Pairing Likert with pairwise evaluation---or increasing sample sizes by $3$--$4\times$---provides more complete coverage.
-CSD generalizes to any surface-level axis with content-preserving rewrites; deeper axes remain open.
+For alignment pipelines, the per-axis confound structure implies that verbosity preferences in RLHF reward signals are predominantly style-driven, while formality preferences partially reflect genuine quality differences---a distinction invisible without GEE-level decomposition.
+More broadly, current evaluation benchmarks that report only Likert scores may systematically underestimate the magnitude of style biases, potentially validating judges whose learned preferences encode surface-level shortcuts rather than genuine quality assessment.
+The GEE decomposition further suggests that aggregate bias metrics obscure axis-specific mechanisms: a judge may appear unbiased overall while harboring strong style preferences on individual axes that cancel in aggregate but compound in domain-specific deployment.
+CSD generalizes to any surface-level axis with content-preserving rewrites; deeper axes (e.g., reasoning depth, factual density) that resist content-neutral manipulation remain open for future work.
