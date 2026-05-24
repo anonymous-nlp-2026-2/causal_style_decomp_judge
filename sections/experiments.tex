@@ -90,7 +90,6 @@ Six experimental controls (\S\ref{sec:amplification}) bound the amplification fa
 Non-tie concordance analysis partially adjudicates: among 201 Likert non-tie pairs (pooled across judges and axes), 76.6\% agree with pairwise direction [70.3\%, 81.9\%], $p < 0.001$; point-biserial correlations are uniformly positive ($r = 0.20$--$0.45$, 7/9 significant; Appendix~\ref{app:concordance})---evidence more consistent with measurement attenuation than construct divergence, though partial construct divergence remains at weaker effect sizes.
 Claude's benchmark-dependent profile illustrates why aggregate BT is insufficient for bias attribution: LLMBar formality shows near-null sensitivity (Style OR n.s.) while AEval verbosity reveals significant sensitivity (Style OR $= 4.76$, $p < .001$)---a pattern disambiguated only by per-axis GEE decomposition (\S\ref{sec:cross_judge}; Appendix~\ref{app:claude_tost}).
 All three interpretations converge on one practical conclusion: single-format audits risk incomplete bias coverage; the Blindspot manifests in 8/11 bias-positive cells, with three exceptions ($\ddagger$) confirming effect-size dependence.
-This finding has direct implications for alignment pipelines that use Likert-based reward models: biases embedded in reward signals may go undetected during model development, propagating style preferences into downstream model behavior without any diagnostic signal at standard evaluation scales.
 
 \begin{figure}[t]
 \centering
@@ -165,7 +164,6 @@ Length-controlled regression confirms 60\% of the FK cross-axis effect is mediat
 
 These per-axis patterns selectively replicate across benchmarks (6/24 possible cells; Figure~\ref{fig:cross_bench_heatmap}), targeting the strongest effects: Llama-70B formality on AlpacaEval (BT 75.0\%, Style OR $= 7.64$) is strong enough for Likert detection ($\ddagger$ rows), confirming the severity spectrum.
 The selective replication strategy prioritizes cells where effects are strongest, providing an informative lower bound on cross-benchmark generalization without requiring exhaustive evaluation of all judge--axis--benchmark combinations.
-Claude Sonnet~4 provides discriminative validity: near-null sensitivity on LLMBar (formality BT $= 0.562$, n.s.) but significant verbosity sensitivity on AlpacaEval (Style OR $= 4.76$, $p < .001$), demonstrating that CSD does not uniformly inflate bias estimates and that sensitivity profiles are benchmark-contingent even within a single judge.
 
 \begin{figure}[t]
 \centering
@@ -188,4 +186,5 @@ Annotators judged only 49--66\% of NLI-passed pairs as showing detectable style 
 \citet{jeong2025comparative} show that pairwise comparison amplifies style biases (the Comparative Trap).
 The divergence cannot be definitively resolved without human ground-truth measurements; six controls bound amplification risk: (i)~NLI ablation reverses NLI-fail pairs (BT 41.7\%); (ii)~Claude shows benchmark-dependent sensitivity (formality Style OR n.s.; AEval verbosity OR $= 4.76$, $p < .001$); (iii)~cross-axis BT variation inconsistent with uniform amplification; (iv)~rewriting artifact absorbed by GEE; (v)~debiased prompting ($-5.2$/$-13.1$pp), bounding the amplification factor at ${\sim}9$--$17\%$ of the total BT effect; (vi)~four-architecture replication with consistent GEE structure.
 Register is exploratory with evaluator-producer overlap and judge-dependent effects (Table~\ref{tab:gee}).
+Same-style double-rewrite controls confirm that any residual rewriting artifact is absorbed by the GEE originality term rather than inflating the style coefficient.
 The combination of NLI validation and amplification controls establishes that while the exact magnitude of style sensitivity remains bounded rather than point-identified, the qualitative finding---systematic style preferences invisible to Likert---is robust across judges, axes, and measurement assumptions.
