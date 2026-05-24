@@ -36,6 +36,7 @@ BERTScore serves as a supplementary monitor (mean $\Delta$BERTScore $< 0.02$ for
 Each pair that passes the NLI gate is evaluated by four target judges (GPT-4o, Qwen3-32B, Llama-3.3-70B, and Gemini-2.5-Flash) under two complementary scoring modes.
 In Likert mode, the judge assigns an integer score from 1 to 10 for overall quality to each text independently; the coarse integer scale is typical of deployed evaluation systems but limits measurement resolution for subtle effects.
 In pairwise mode, the judge receives both texts as candidates A and B and makes a forced choice of which response is better, eliminating anchoring effects inherent in absolute rating.
+This dual-mode design enables direct comparison of measurement sensitivity on identical data, isolating format-induced differences from content variation.
 
 To control for position bias, each pairwise comparison is evaluated twice with the presentation order swapped, which produces $n_{\text{pairs}} \times 2$ observations.
 We apply two analysis strategies to these data.

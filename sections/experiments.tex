@@ -139,6 +139,7 @@ Llama-70B reg.\ & 3.33 & .0003 & 3.07 & .0008 \\
 
 The confound structure is consistent across all four target judges for verbosity (style-dominated at $n = 88$: Style OR $8.2$--$13.1$, Orig OR $0.38$--$0.49$; confirmed at $n = 330$: Style OR $2.5$--$4.0$); formality is conditionally style-driven in three judges but originality-dominated in Gemini; register is judge-dependent (Figure~\ref{fig:gee_decomp}).
 Same-style double-rewrite controls confirm a rewriting artifact (Appendix~\ref{app:artifact_control}), absorbed by GEE's originality term.
+The Gemini exception (formality Style OR $= 1.64$, n.s.) demonstrates that the decomposition is not uniformly biased toward detecting style effects; judges with weaker style sensitivity produce correspondingly weaker Style ORs.
 
 \begin{figure}[t]
 \centering
@@ -157,6 +158,7 @@ This convergence at larger $n$ is practically important: it means that labs with
 
 Two independent judges replicate the formality Blindspot: Qwen3-32B (BT 66.5\%, $p < 0.0001$; Likert $p = 0.461$) and Llama-3.3-70B (BT 69.5\%, $p = 0.0001$; Likert $p = 0.534$).
 Gemini-2.5-Flash shows a weaker, originality-dominated formality pattern (confirmatory: BT 57.4\%, $p = 0.031$; Likert $d = {-}0.08$, n.s.; Style OR $= 1.64$, n.s.; Orig OR $= 2.51$, $p = 0.002$; \S\ref{sec:direction}).
+Claude Sonnet~4 shows near-null sensitivity on LLMBar for both axes (BT $\leq 0.562$, n.s.), providing discriminative validity: CSD does not uniformly inflate bias estimates across all judges.
 
 Verbosity provides the strongest Blindspot: all four target judges show consistent preference (GPT-4o 76.0\%, Qwen3-32B 77.3\%, Llama-70B 73.5\%, Gemini 70.8\%; all $p \leq 0.0001$), while Likert ATE remains non-significant for all ($p = 0.284$--$0.403$).
 GEE confirms style dominance (Style OR $8.2$--$13.1$, all $p < .0001$; Orig OR $0.38$--$0.49$; Table~\ref{tab:gee}).
