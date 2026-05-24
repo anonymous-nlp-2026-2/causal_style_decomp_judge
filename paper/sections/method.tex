@@ -25,31 +25,78 @@ BERTScore serves as a supplementary monitor but does not participate in gating.
 
 \begin{figure}[t]
 \centering
+\definecolor{cBlue}{HTML}{4A6FA5}%
+\definecolor{cRed}{HTML}{C0392B}%
+\definecolor{cGreen}{HTML}{5B8C5A}%
+\definecolor{cPurple}{HTML}{7E57C2}%
+\definecolor{cGray}{HTML}{95A5A6}%
+\definecolor{cAmber}{HTML}{D4956A}%
 \begin{tikzpicture}[
-    node distance=2.5cm and 3cm,
+    node distance=1.6cm and 2.8cm,
     every node/.style={font=\small},
-    obs/.style={draw, circle, minimum size=1.1cm, thick},
-    mech/.style={draw, rectangle, rounded corners, minimum size=0.9cm, thick, fill=gray!10},
-    gate/.style={draw, rectangle, dashed, thick, fill=blue!8, font=\footnotesize},
-    arr/.style={-{Stealth[length=5pt]}, thick},
-    blocked/.style={-{Stealth[length=5pt]}, thick, dash dot, black!45},
+    var/.style={
+      draw=#1!70, line width=0.8pt,
+      circle, minimum size=1.3cm,
+      fill=#1!12,
+      inner sep=0pt,
+      drop shadow={shadow xshift=0.3pt, shadow yshift=-0.3pt, opacity=0.08},
+    },
+    mechbox/.style={
+      draw=cAmber!70, line width=0.8pt,
+      rectangle, rounded corners=6pt,
+      minimum height=0.95cm, minimum width=1.6cm,
+      fill=cAmber!10,
+      drop shadow={shadow xshift=0.3pt, shadow yshift=-0.3pt, opacity=0.08},
+    },
+    gatebox/.style={
+      draw=cPurple!50, line width=0.7pt,
+      densely dashed,
+      rectangle, rounded corners=5pt,
+      minimum height=0.75cm, minimum width=1.35cm,
+      fill=cPurple!6,
+      font=\footnotesize,
+    },
+    arr/.style={-{Stealth[length=4.5pt, width=3pt]},
+      line width=0.75pt, color=black!45},
+    arrprime/.style={-{Stealth[length=5.5pt, width=4pt]},
+      line width=1.1pt, color=cBlue},
+    arrblk/.style={-{Stealth[length=4pt, width=3pt]},
+      line width=0.6pt, color=cRed!45, dash dot},
+    arrres/.style={-{Stealth[length=3.5pt, width=2.5pt]},
+      line width=0.5pt, densely dashed, color=cGray!70},
+    arrctrl/.style={-{Stealth[length=3.5pt, width=2.5pt]},
+      line width=0.5pt, color=cPurple!50},
+    elbl/.style={font=\scriptsize, text=black!50, inner sep=1.5pt},
   ]
-  \node[obs] (S) {$S$};
-  \node[obs, right=of S] (Y) {$Y$};
-  \node[obs, above=1.8cm of Y] (Q) {$Q$};
-  \node[mech, left=2cm of Q] (R) {Rewrite};
-  \node[gate, below=0.5cm of R] (NLI) {NLI gate};
-  \node[obs, below=1.2cm of Y] (P) {$P$};
 
-  \draw[arr] (S) -- node[below, font=\footnotesize] {style sensitivity} (Y);
-  \draw[arr] (Q) -- node[right, font=\footnotesize] {quality} (Y);
-  \draw[arr] (R) -- node[above, font=\footnotesize] {} (S);
-  \draw[blocked] (R) -- node[above, font=\footnotesize, black] {\texttimes} (Q);
-  \draw[blocked] (R) to[bend left=25] node[pos=0.6, right, font=\scriptsize, black] {\texttimes\ artifact} (Y);
-  \draw[blocked] (P) -- node[right, font=\scriptsize, black] {pos.\ swap} (Y);
-  \draw[arr, densely dashed, thick, gray!50!black] (S) to[bend left=30] node[pos=0.5, above left, font=\scriptsize] {residual confound.} (Q);
+  \node[var=cBlue] (S) {$S$};
+  \node[below=2pt of S, font=\fontsize{7}{8}\selectfont, text=cBlue!60] {style};
 
-  \draw[arr, gray] (NLI) -- (R);
+  \node[var=cBlue, right=of S] (Y) {$Y$};
+  \node[below=2pt of Y, font=\fontsize{7}{8}\selectfont, text=cBlue!60] {score};
+
+  \node[var=cGreen, above=1.6cm of Y] (Q) {$Q$};
+  \node[below=2pt of Q, font=\fontsize{7}{8}\selectfont, text=cGreen!60] {quality};
+
+  \node[mechbox, left=2.2cm of Q] (R) {\textit{Rewrite}};
+  \node[gatebox, below=0.45cm of R] (NLI) {NLI gate};
+
+  \node[var=cGray, below=1.3cm of Y] (P) {$P$};
+  \node[below=2pt of P, font=\fontsize{7}{8}\selectfont, text=cGray!70] {position};
+
+  \draw[arrprime] (S) -- node[elbl, below] {style sensitivity} (Y);
+  \draw[arr] (Q) -- (Y);
+  \draw[arr] (R) -- (S);
+
+  \draw[arrblk] (R) -- node[above, pos=0.5, font=\scriptsize, text=cRed!60] {\texttimes} (Q);
+  \draw[arrblk] (R) to[bend left=22]
+    node[pos=0.6, right, font=\fontsize{7}{8}\selectfont, text=cRed!55] {\texttimes\;\textit{artifact}} (Y);
+  \draw[arrblk] (P) -- node[right, pos=0.4, font=\fontsize{7}{8}\selectfont, text=cRed!55] {\texttimes\;\textit{swap}} (Y);
+
+  \draw[arrres] (S) to[bend left=28]
+    node[pos=0.5, above left, font=\fontsize{7}{8}\selectfont\itshape, text=cGray!70] {residual} (Q);
+
+  \draw[arrctrl] (NLI) -- (R);
 
 \end{tikzpicture}
 \caption{Assumed data-generating process (design rationale, not a claim of perfect identification). The rewriting mechanism $R$ targets style $S$ but may inadvertently alter content quality $Q$ (dash-dot, blocked by NLI gate) or introduce rewriting artifacts ($R \to Y$, blocked by double-rewrite control). Position bias $P \to Y$ is controlled by order swapping. The dashed $S \to Q$ path represents residual confounding (Limitations). $Y$: judge score.}
