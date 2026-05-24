@@ -93,7 +93,7 @@ ax.axvline(x=0.50, color='#AAAAAA', linestyle='--', linewidth=0.9, zorder=1)
 for item in all_rows:
     if item[0] == 'header':
         _, judge_name, (gs, ge), yh = item
-        ax.text(0.395, yh, judge_name, ha='right', va='center',
+        ax.text(0.44, yh, judge_name, ha='right', va='center',
                 fontsize=10, fontweight='bold', color='#222222')
         continue
 
@@ -113,16 +113,11 @@ for item in all_rows:
                    edgecolors=color, linewidths=1.5, zorder=4)
 
     # Axis label (left of plot, indented)
-    ax.text(0.395, yval, f'  {axis_name}', ha='right', va='center',
+    ax.text(0.44, yval, f'{axis_name}', ha='right', va='center',
             fontsize=9, color='#555555')
 
-    # Right-side stats
-    stat_text = f"{bt:.3f}   [{ci_lo:.3f}, {ci_hi:.3f}]   {p_str}"
-    ax.text(0.905, yval, stat_text, ha='left', va='center',
-            fontsize=8, fontfamily='monospace', color='#333333')
-
 # Axis configuration
-ax.set_xlim(0.40, 0.90)
+ax.set_xlim(0.45, 0.90)
 ax.set_ylim(-0.6, max_y + 0.3)
 ax.set_yticks([])
 ax.set_xlabel('P(style-preferred wins)', fontsize=10)

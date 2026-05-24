@@ -52,7 +52,7 @@ All GEE results reported in the main text are therefore robust to correlation st
 \small
 \caption{GEE correlation structure comparison across nine judge$\times$axis cells.}
 \label{tab:gee_corr}
-\begin{tabular}{lcccc}
+\resizebox{\columnwidth}{!}{\begin{tabular}{@{}lcccc@{}}
 \toprule
 Config & Exch.\ QIC & Indep.\ QIC & $|\Delta\text{QIC}|$ & Max$|\Delta\text{Coef}|$ \\
 \midrule
@@ -67,7 +67,7 @@ Qwen3 reg.\ & --- & --- & ${<}0.001$ & ${<}0.02$ \\
 Llama-70B reg.\ & --- & --- & ${<}0.001$ & ${<}0.02$ \\
 \bottomrule
 \multicolumn{5}{l}{\footnotesize Absolute QIC values omitted; only $|\Delta\text{QIC}|$ is reported.}
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 \paragraph{Interaction test.}
@@ -79,7 +79,7 @@ Table~\ref{tab:gee-interaction} reports interaction terms; none are significant,
 \small
 \caption{GEE Style $\times$ Originality interaction terms. None are significant ($p > 0.13$), confirming the additive model specification.}
 \label{tab:gee-interaction}
-\begin{tabular}{@{}llccc@{}}
+\resizebox{\columnwidth}{!}{\begin{tabular}{@{}llccc@{}}
 \toprule
 Judge & Axis & Interaction OR & 95\% CI & $p$ \\
 \midrule
@@ -92,7 +92,7 @@ Qwen3-32B & Register & 0.555 & [0.15, 2.08] & .383 \\
 Llama-70B & Formality & 0.968 & [0.25, 3.78] & .963 \\
 Llama-70B & Verbosity & 1.103 & [0.34, 3.58] & .870 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 \paragraph{95\% confidence intervals.}
@@ -385,7 +385,7 @@ Only pairwise methods reach significance; all Likert-based methods fail regardle
 \small
 \caption{Sensitivity hierarchy: seven measurement methods applied to the same formality data. Only pairwise methods (top two rows) reach significance.}
 \label{tab:sensitivity}
-\begin{tabular}{lccc}
+\resizebox{\columnwidth}{!}{\begin{tabular}{@{}lccc@{}}
 \toprule
 Method & Statistic & $p$ & Data \\
 \midrule
@@ -398,7 +398,7 @@ Ordinal reg.\ (prop.\ odds) & $\beta = {-}0.079$ & 0.769 & NLI$\geq$0.90 \\
 GEE (exchangeable) & $\beta = {-}0.084$ & 0.587 & NLI$\geq$0.90 \\
 Wilcoxon signed-rank & $W = 274$ & 0.905 & NLI$\geq$0.90 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 \section{Verbosity Sensitivity Hierarchy}
@@ -448,7 +448,7 @@ The efficiency gap---Likert requiring $3$--$4\times$ the sample size pairwise ne
 \small
 \caption{Verbosity scaled replication ($n = 330$, four judges; GPT-4o not re-scored). Blindspot partially resolves for strong effects (Qwen3, Llama-70B) but persists for weaker-effect judges (Gemini, Claude).}
 \label{tab:verb_n355}
-\begin{tabular}{@{}lcccc@{}}
+\resizebox{\columnwidth}{!}{\begin{tabular}{@{}lcccc@{}}
 \toprule
 Judge & BT $P(\text{V})$ & [95\% CI] & Likert $d$ ($p$) & Blindspot? \\
 \midrule
@@ -457,8 +457,9 @@ Llama-70B & .759$^{***}$ & [.722, .793] & .160 ({<}.001) & No \\
 Gemini-2.5 & .678$^{***}$ & [.638, .717] & .087 (.021) & $\dagger$ \\
 Claude S4 & .608$^{***}$ & [.567, .649] & .032 (.317) & $\dagger$ \\
 \bottomrule
-\multicolumn{5}{p{0.95\columnwidth}}{\footnotesize $^{***}$\,$p < 0.001$. $\dagger$ marks Blindspot cases (BT significant, Likert $d$ non-significant at $\alpha = 0.05$ by Wilcoxon). Likert $p$ values from Wilcoxon signed-rank test on non-zero differences.}
-\end{tabular}
+\end{tabular}}
+\par\vspace{2pt}
+{\footnotesize $^{***}$\,$p < 0.001$. $\dagger$ marks Blindspot cases (BT significant, Likert $d$ non-significant at $\alpha = 0.05$ by Wilcoxon). Likert $p$ values from Wilcoxon signed-rank test on non-zero differences.}
 \end{table}
 
 \section{100-Point Continuous Likert Scale}
@@ -696,7 +697,7 @@ The remaining 18/24 cells (3 benchmarks $\times$ 4 target judges $\times$ 2 axes
 \small
 \caption{Cross-benchmark replication on AlpacaEval (AEval) and MT-Bench (MTB). $\ddagger$: both BT and Likert significant; $\dagger$: Blindspot (BT significant, Likert not).}
 \label{tab:cross_bench}
-\begin{tabular}{@{}lllccc@{}}
+\resizebox{\columnwidth}{!}{\begin{tabular}{@{}lllccc@{}}
 \toprule
 Bench & Judge & Axis & BT $P$ & Likert $d$ ($p$) & Cat.\ \\
 \midrule
@@ -709,7 +710,7 @@ MTB & GPT-4o & Form.\ & .692$^{***}$ & .111 (.016) & $\ddagger$ \\
  & Qwen3 & Form.\ & .712$^{***}$ & .149 (.007) & $\ddagger$ \\
 \bottomrule
 \multicolumn{6}{l}{\footnotesize $^{***}$ $p < 0.001$. $\ddagger$: both sig.;\; $\dagger$: Blindspot.}
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 \section{Claude Cross-Benchmark Analysis}
