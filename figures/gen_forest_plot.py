@@ -118,7 +118,7 @@ for item in all_rows:
 
 # Axis configuration
 ax.set_xlim(0.45, 0.90)
-ax.set_ylim(-0.6, max_y + 0.3)
+ax.set_ylim(-0.6, max_y + 1.5)
 ax.set_yticks([])
 ax.set_xlabel('P(style-preferred wins)', fontsize=10)
 ax.spines['left'].set_visible(False)
@@ -129,8 +129,7 @@ axis_patches = [
     Line2D([0], [0], color=AXIS_COLORS['Formality'], linewidth=2.5, label='Formality'),
     Line2D([0], [0], color=AXIS_COLORS['Register'], linewidth=2.5, label='Register'),
 ]
-leg_top = ax.legend(handles=axis_patches, loc='lower right',
-                    bbox_to_anchor=(1.0, 1.02),
+leg_top = ax.legend(handles=axis_patches, loc='upper right',
                     fontsize=8, frameon=True, framealpha=0.95,
                     edgecolor='#DDDDDD', borderpad=0.4, ncol=3,
                     columnspacing=1.0, handlelength=1.5)
@@ -144,7 +143,8 @@ diamond_elements = [
            markeredgecolor='#888888', markersize=6.5, markeredgewidth=1.5,
            label='Not sig.'),
 ]
-leg_bot = ax.legend(handles=diamond_elements, loc='lower right',
+leg_bot = ax.legend(handles=diamond_elements, loc='upper right',
+                    bbox_to_anchor=(1.0, -0.18),
                     fontsize=8, frameon=True, framealpha=0.95,
                     edgecolor='#DDDDDD', borderpad=0.4, ncol=2,
                     columnspacing=0.8, handlelength=1.2)
@@ -152,6 +152,7 @@ leg_bot.get_frame().set_linewidth(0.5)
 ax.add_artist(leg_top)
 
 plt.tight_layout()
+fig.subplots_adjust(bottom=0.24)
 
 out_dir = '/home/ubuntu/.agent-ml-research-idea_gen_0514_5/projects/causal_style_decomp_judge/docs/paper/figures'
 fig.savefig(f'{out_dir}/forest_plot.pdf', facecolor='white', edgecolor='none')
