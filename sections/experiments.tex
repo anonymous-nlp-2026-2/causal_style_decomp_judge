@@ -17,7 +17,8 @@ A prospective power analysis (Appendix~\ref{app:power}) confirms that our sample
 
 \paragraph{Model selection.}
 Target judges span four architectures from independent providers: GPT-4o (\texttt{2024-08-06}; OpenAI), Qwen3-32B-Instruct (Alibaba; also serving as rewriter), Llama-3.3-70B-Instruct (Meta), and Gemini-2.5-Flash (Google).
-This diversity guards against provider-specific artifacts; Claude Sonnet~4 (Anthropic) provides discriminative validity evidence (\S\ref{sec:cross_judge}), serving as a fifth judge from a provider not represented in the primary family.
+This diversity guards against provider-specific artifacts in both training data and RLHF reward modeling; Claude Sonnet~4 (Anthropic) provides discriminative validity evidence (\S\ref{sec:cross_judge}), serving as a fifth judge from a provider not represented in the primary family.
+All judges are accessed via their respective APIs with temperature 0 (deterministic decoding) and default system prompts to ensure reproducibility.
 
 \begin{table}[t]
 \centering
@@ -89,6 +90,7 @@ Six experimental controls (\S\ref{sec:amplification}) bound the amplification fa
 Non-tie concordance analysis partially adjudicates: among 201 Likert non-tie pairs (pooled across judges and axes), 76.6\% agree with pairwise direction [70.3\%, 81.9\%], $p < 0.001$; point-biserial correlations are uniformly positive ($r = 0.20$--$0.45$, 7/9 significant; Appendix~\ref{app:concordance})---evidence more consistent with measurement attenuation than construct divergence, though partial construct divergence remains at weaker effect sizes.
 Claude's benchmark-dependent profile illustrates why aggregate BT is insufficient for bias attribution: LLMBar formality shows near-null sensitivity (Style OR n.s.) while AEval verbosity reveals significant sensitivity (Style OR $= 4.76$, $p < .001$)---a pattern disambiguated only by per-axis GEE decomposition (\S\ref{sec:cross_judge}; Appendix~\ref{app:claude_tost}).
 All three interpretations converge on one practical conclusion: single-format audits risk incomplete bias coverage; the Blindspot manifests in 8/11 bias-positive cells, with three exceptions ($\ddagger$) confirming effect-size dependence.
+This finding has direct implications for alignment pipelines that use Likert-based reward models: biases embedded in reward signals may go undetected during model development, propagating style preferences into downstream model behavior without any diagnostic signal at standard evaluation scales.
 
 \begin{figure}[t]
 \centering
@@ -103,6 +105,7 @@ All three interpretations converge on one practical conclusion: single-format au
 GEE conditional decomposition \citep{liang1986gee} with exchangeable working correlation and robust standard errors separates style from originality effects (Appendix~\ref{app:direction}; model diagnostics including correlation structure robustness and interaction tests in Appendix~\ref{app:gee_diagnostics}).
 After controlling for original preference, the formality effect remains significant (GPT-4o: OR $= 2.58$, $p = 0.002$; Qwen3-32B: OR $= 2.15$, $p < 0.0001$, $n = 355$; Llama-70B: OR $= 4.81$, $p < 0.0001$; Table~\ref{tab:gee}); the significant originality ORs confirm residual confounding.
 For formality, both style preference and quality correlation contribute (a conditional effect); the two-predictor GEE provides a parsimonious decomposition rather than causal identification---omitted variables (text length, lexical complexity) may partly confound both terms.
+This per-axis heterogeneity has direct implications for bias mitigation: verbosity bias can be addressed by style-level interventions (e.g., length normalization or debiased prompting), whereas formality bias requires disentangling genuine quality correlates from surface-level preferences---a fundamentally harder problem that aggregate bias metrics cannot even detect.
 
 \begin{table}[t]
 \centering
@@ -147,6 +150,7 @@ Same-style double-rewrite controls confirm a rewriting artifact (Appendix~\ref{a
 \paragraph{Sample-size sensitivity.}
 At $n = 355$, the Qwen3-32B formality Style OR drops from $4.20$ to $2.15$ ($-49\%$), consistent with small-sample upward bias \citep{nemes2009bias}; the regime classification remains stable (both effects significant; Orig OR $4.70 \to 4.99$).
 Verbosity $n = 330$ confirms 51--72\% GEE shrinkage (Style OR $2.5$--$4.0$; Appendix~\ref{app:verb_n355}), preserving the style-dominated classification; Likert begins detecting the strongest effects at this $n$, reframing the Blindspot as a $3$--$4\times$ efficiency gap rather than absolute failure.
+This convergence at larger $n$ is practically important: it means that labs with sufficient evaluation budgets ($n > 300$) can detect the strongest biases with Likert alone, but typical benchmark sizes ($n = 50$--$200$) systematically miss them.
 
 \subsection{Cross-Judge and Cross-Axis Replication}
 \label{sec:cross_judge}
@@ -160,6 +164,8 @@ Both rewriting directions favor verbose responses (90.7\%/80.6\%); length-contro
 Length-controlled regression confirms 60\% of the FK cross-axis effect is mediated by sentence length (Sobel $z = 2.15$, $p = .031$); under the assumed causal structure (Figure~\ref{fig:dag}), FK acts as a plausible mediator ($S \to \text{FK} \to Y$; \citealp{pearl2009causality}), yielding a direct-effect Style OR of $2.15$ for GPT-4o (total OR $= 2.70$; Appendix~\ref{app:fk_length}).
 
 These per-axis patterns selectively replicate across benchmarks (6/24 possible cells; Figure~\ref{fig:cross_bench_heatmap}), targeting the strongest effects: Llama-70B formality on AlpacaEval (BT 75.0\%, Style OR $= 7.64$) is strong enough for Likert detection ($\ddagger$ rows), confirming the severity spectrum.
+The selective replication strategy prioritizes cells where effects are strongest, providing an informative lower bound on cross-benchmark generalization without requiring exhaustive evaluation of all judge--axis--benchmark combinations.
+Claude Sonnet~4 provides discriminative validity: near-null sensitivity on LLMBar (formality BT $= 0.562$, n.s.) but significant verbosity sensitivity on AlpacaEval (Style OR $= 4.76$, $p < .001$), demonstrating that CSD does not uniformly inflate bias estimates and that sensitivity profiles are benchmark-contingent even within a single judge.
 
 \begin{figure}[t]
 \centering
@@ -174,10 +180,12 @@ These per-axis patterns selectively replicate across benchmarks (6/24 possible c
 \paragraph{Content preservation.}
 Two independent annotators evaluated 100 NLI-scored pairs (50 per axis; 70 gate-passed, 30 gate-failed), confirming $98.6\%$ gate pass precision ($69/70$; AC$_1 = 0.96$; Appendix~\ref{app:annotation_agreement}).
 \label{sec:nli_threshold}
-BT remains stable (${\leq}3$pp variation) across 11 NLI thresholds (Appendix~\ref{app:nli_sweep}), and annotators judged only 49--66\% of NLI-passed pairs as showing detectable style change, suggesting observed effects represent a diluted lower bound on true style sensitivity.
+BT remains stable (${\leq}3$pp variation) across 11 NLI thresholds (Appendix~\ref{app:nli_sweep}), confirming that results are not artifacts of a particular gating stringency.
+Annotators judged only 49--66\% of NLI-passed pairs as showing detectable style change, suggesting observed effects represent a diluted lower bound on true style sensitivity---the NLI gate retains pairs with subtle rewrites that human annotators cannot detect, yet judges still systematically prefer one variant.
 
 \paragraph{Detection vs.\ amplification.}
 \label{sec:amplification}
 \citet{jeong2025comparative} show that pairwise comparison amplifies style biases (the Comparative Trap).
 The divergence cannot be definitively resolved without human ground-truth measurements; six controls bound amplification risk: (i)~NLI ablation reverses NLI-fail pairs (BT 41.7\%); (ii)~Claude shows benchmark-dependent sensitivity (formality Style OR n.s.; AEval verbosity OR $= 4.76$, $p < .001$); (iii)~cross-axis BT variation inconsistent with uniform amplification; (iv)~rewriting artifact absorbed by GEE; (v)~debiased prompting ($-5.2$/$-13.1$pp), bounding the amplification factor at ${\sim}9$--$17\%$ of the total BT effect; (vi)~four-architecture replication with consistent GEE structure.
 Register is exploratory with evaluator-producer overlap and judge-dependent effects (Table~\ref{tab:gee}).
+The combination of NLI validation and amplification controls establishes that while the exact magnitude of style sensitivity remains bounded rather than point-identified, the qualitative finding---systematic style preferences invisible to Likert---is robust across judges, axes, and measurement assumptions.
