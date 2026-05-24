@@ -154,8 +154,8 @@ Gemini-2.5-Flash shows a weaker, originality-dominated formality pattern (confir
 
 Verbosity provides the strongest Blindspot: all four target judges show consistent preference (GPT-4o 76.0\%, Qwen3-32B 77.3\%, Llama-70B 73.5\%, Gemini 70.8\%; all $p \leq 0.0001$), while Likert ATE remains non-significant for all ($p = 0.284$--$0.403$).
 GEE confirms style dominance (Style OR $8.2$--$13.1$, all $p < .0001$; Orig OR $0.38$--$0.49$; Table~\ref{tab:gee}).
-Both rewriting directions favor verbose responses (90.7\%/80.6\%); length-controlled Style OR is unchanged ($<$2\%; Appendix~\ref{app:rewriter_indep}).
-Length-controlled regression confirms 60\% of the FK cross-axis effect is mediated by sentence length (Sobel $z = 2.15$, $p = .031$; direct-effect Style OR $= 2.15$, total $= 2.70$; Appendix~\ref{app:fk_length}).
+Both rewriting directions favor verbose responses (90.7\%/80.6\%); length-controlled Style OR is unchanged ($<$2\%), and an independent GPT-4o rewriter bounds evaluator-producer overlap to a 22\% reduction (Appendix~\ref{app:rewriter_indep}).
+Length-controlled regression confirms 60\% of the FK cross-axis effect is mediated by sentence length (Sobel $z = 2.15$, $p = .031$); under the assumed causal structure (Figure~\ref{fig:dag}), FK acts as a plausible mediator ($S \to \text{FK} \to Y$; \citealp{pearl2009causality}), yielding a direct-effect Style OR of $2.15$ for GPT-4o (total OR $= 2.70$; Appendix~\ref{app:fk_length}).
 
 These per-axis patterns selectively replicate across benchmarks (6/24 possible cells; Figure~\ref{fig:cross_bench_heatmap}), targeting the strongest effects: Llama-70B formality on AlpacaEval (BT 75.0\%, Style OR $= 7.64$) is strong enough for Likert detection ($\ddagger$ rows), confirming the severity spectrum.
 
@@ -177,5 +177,5 @@ BT remains stable (${\leq}3$pp variation) across 11 NLI thresholds (Appendix~\re
 \paragraph{Detection vs.\ amplification.}
 \label{sec:amplification}
 \citet{jeong2025comparative} show that pairwise comparison amplifies style biases (the Comparative Trap).
-The divergence cannot be definitively resolved without human ground-truth; six controls bound amplification risk: NLI ablation reverses NLI-fail pairs (BT 41.7\%), Claude shows benchmark-dependent sensitivity, cross-axis BT variation is inconsistent with uniform amplification, debiased prompting ($-5.2$/$-13.1$pp) bounds the factor at ${\sim}9$--$17\%$, and four-architecture replication yields consistent GEE structure.
+The divergence cannot be definitively resolved without human ground-truth measurements; six controls bound amplification risk: (i)~NLI ablation reverses NLI-fail pairs (BT 41.7\%); (ii)~Claude shows benchmark-dependent sensitivity (formality Style OR n.s.; AEval verbosity OR $= 4.76$, $p < .001$); (iii)~cross-axis BT variation inconsistent with uniform amplification; (iv)~rewriting artifact absorbed by GEE; (v)~debiased prompting ($-5.2$/$-13.1$pp), bounding the amplification factor at ${\sim}9$--$17\%$ of the total BT effect; (vi)~four-architecture replication with consistent GEE structure.
 Register is exploratory with evaluator-producer overlap and judge-dependent effects (Table~\ref{tab:gee}).
