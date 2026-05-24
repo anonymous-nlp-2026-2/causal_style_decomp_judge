@@ -147,10 +147,8 @@ Same-style double-rewrite controls confirm a rewriting artifact (Appendix~\ref{a
 \end{figure}
 
 \paragraph{Sample-size sensitivity.}
-At $n = 355$, the Qwen3-32B formality Style OR drops from $4.20$ to $2.15$ $[1.46, 3.16]$ ($-49\%$), consistent with small-sample upward bias \citep{nemes2009bias}; the log-OR CI contracts by $1.94\times$ (close to $\sqrt{355/88} \approx 2.01$), and the regime classification remains stable---conditional at both sample sizes (both effects significant; Orig OR $4.70 \to 4.99$).
-Verbosity $n = 330$ replication confirms 51--72\% GEE shrinkage (Style OR $2.5$--$4.0$; Appendix~\ref{app:verb_n355}), preserving the style-dominated classification.
-Likert begins detecting the strongest verbosity effects at this $n$ (two judges reach significance), reframing the Blindspot as a $3$--$4\times$ efficiency gap rather than absolute failure.
-GPT-4o is the sole judge without large-sample validation on either axis; projected formality Style OR ${\sim}1.3$ (CI may include $1.0$).
+At $n = 355$, the Qwen3-32B formality Style OR drops from $4.20$ to $2.15$ ($-49\%$), consistent with small-sample upward bias \citep{nemes2009bias}; the regime classification remains stable (both effects significant; Orig OR $4.70 \to 4.99$).
+Verbosity $n = 330$ confirms 51--72\% GEE shrinkage (Style OR $2.5$--$4.0$; Appendix~\ref{app:verb_n355}), preserving the style-dominated classification; Likert begins detecting the strongest effects at this $n$, reframing the Blindspot as a $3$--$4\times$ efficiency gap rather than absolute failure.
 
 \subsection{Cross-Judge and Cross-Axis Replication}
 \label{sec:cross_judge}
@@ -161,8 +159,7 @@ Gemini-2.5-Flash shows a weaker, originality-dominated formality pattern (confir
 Verbosity provides the strongest Blindspot: all four target judges show consistent preference (GPT-4o 76.0\%, Qwen3-32B 77.3\%, Llama-70B 73.5\%, Gemini 70.8\%; all $p \leq 0.0001$), while Likert ATE remains non-significant for all ($p = 0.284$--$0.403$).
 GEE confirms style dominance (Style OR $8.2$--$13.1$, all $p < .0001$; Orig OR $0.38$--$0.49$; Table~\ref{tab:gee}).
 Both rewriting directions favor verbose responses (90.7\%/80.6\%); length-controlled Style OR is unchanged ($<$2\%), and an independent GPT-4o rewriter bounds evaluator-producer overlap to a 22\% reduction (Appendix~\ref{app:rewriter_indep}).
-Length-controlled regression confirms 60\% of the FK cross-axis effect is mediated by sentence length (Sobel $z = 2.15$, $p = .031$); GEE with FK grade as covariate confirms formality effects survive readability control in two of three judges (Appendix~\ref{app:fk_length}).
-Under our assumed causal structure (Figure~\ref{fig:dag}), FK acts as a plausible mediator on the formality pathway $S \to \text{FK} \to Y$ \citep{pearl2009causality}, yielding a direct-effect Style OR of $2.15$ for GPT-4o; the total effect (OR $= 2.70$) includes the FK-mediated component. An alternative structure cannot be statistically distinguished; we present both interpretations.
+Length-controlled regression confirms 60\% of the FK cross-axis effect is mediated by sentence length (Sobel $z = 2.15$, $p = .031$); under the assumed causal structure (Figure~\ref{fig:dag}), FK acts as a plausible mediator ($S \to \text{FK} \to Y$; \citealp{pearl2009causality}), yielding a direct-effect Style OR of $2.15$ for GPT-4o (total OR $= 2.70$; Appendix~\ref{app:fk_length}).
 
 These per-axis patterns selectively replicate across benchmarks (6/24 possible cells; Figure~\ref{fig:cross_bench_heatmap}), targeting the strongest effects: Llama-70B formality on AlpacaEval (BT 75.0\%, Style OR $= 7.64$) is strong enough for Likert detection ($\ddagger$ rows), confirming the severity spectrum.
 
@@ -177,14 +174,12 @@ These per-axis patterns selectively replicate across benchmarks (6/24 possible c
 \label{sec:nli_validation}
 
 \paragraph{Content preservation.}
-Two independent annotators evaluated 100 NLI-scored pairs (50 per axis; 70 gate-passed, 30 gate-failed), confirming $98.6\%$ gate pass precision ($69/70$; AC$_1 = 0.96$; Appendix~\ref{app:annotation_agreement}); the two flagged pairs change no BT estimate by ${>}1$\,pp.
-The gate is conservative ($93$--$100\%$ of rejected pairs also preserve meaning; recall $59.5\%$).
+Two independent annotators evaluated 100 NLI-scored pairs (50 per axis; 70 gate-passed, 30 gate-failed), confirming $98.6\%$ gate pass precision ($69/70$; AC$_1 = 0.96$; Appendix~\ref{app:annotation_agreement}).
 \label{sec:nli_threshold}
-BT remains stable (${\leq}3$pp variation) across 11 NLI thresholds (Appendix~\ref{app:nli_sweep}), and no covariate differences exist between retained and discarded pairs ($p > 0.12$; \S\ref{sec:consistency}).
-Moreover, annotators judged only 49--66\% of NLI-passed pairs as showing detectable style change, suggesting that observed effects represent a diluted lower bound on true style sensitivity.
+BT remains stable (${\leq}3$pp variation) across 11 NLI thresholds (Appendix~\ref{app:nli_sweep}), and annotators judged only 49--66\% of NLI-passed pairs as showing detectable style change, suggesting observed effects represent a diluted lower bound on true style sensitivity.
 
 \paragraph{Detection vs.\ amplification.}
 \label{sec:amplification}
 \citet{jeong2025comparative} show that pairwise comparison amplifies style biases (the Comparative Trap).
-The divergence cannot be definitively resolved without human ground-truth measurements; six controls bound amplification risk: (i)~NLI ablation reverses NLI-fail pairs (BT 41.7\%; Appendix~\ref{app:nli_ablation}); (ii)~Claude shows benchmark-dependent sensitivity (formality Style OR n.s.\ across three benchmarks; AEval verbosity OR $= 4.76$, $p < .001$); (iii)~cross-axis BT variation inconsistent with uniform amplification; (iv)~rewriting artifact absorbed by GEE; (v)~debiased prompting ($-5.2$/$-13.1$pp), bounding the amplification factor at ${\sim}9$--$17\%$ of the total BT effect; (vi)~four-architecture replication with consistent GEE structure.
+The divergence cannot be definitively resolved without human ground-truth measurements; six controls bound amplification risk: (i)~NLI ablation reverses NLI-fail pairs (BT 41.7\%); (ii)~Claude shows benchmark-dependent sensitivity (formality Style OR n.s.; AEval verbosity OR $= 4.76$, $p < .001$); (iii)~cross-axis BT variation inconsistent with uniform amplification; (iv)~rewriting artifact absorbed by GEE; (v)~debiased prompting ($-5.2$/$-13.1$pp), bounding the amplification factor at ${\sim}9$--$17\%$ of the total BT effect; (vi)~four-architecture replication with consistent GEE structure.
 Register is exploratory with evaluator-producer overlap and judge-dependent effects (Table~\ref{tab:gee}).
