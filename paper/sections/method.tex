@@ -6,9 +6,9 @@
 
 We isolate the effect of individual style attributes on judge scores by generating text pairs that differ along exactly one style axis.
 For each text, an instruction-tuned LLM (Qwen3-32B) classifies its current style along the target axis (e.g., formal vs.\ casual via binary classification).
-It then rewrites the text toward the opposite pole (temperature 0.7, selected to balance diversity with coherence in pilot experiments) according to an axis-specific prompt (e.g., ``Rewrite the following text to be more formal/casual while preserving the exact same content and meaning'').
+It then rewrites the text toward the opposite pole (temperature 0.7, selected to balance diversity with coherence in pilot experiments) according to an axis-specific prompt (Appendix~\ref{app:rewriting_prompts}).
 This produces a dataset balanced across both directions at the dataset level: texts detected as formal are rewritten to casual, and vice versa.
-Each operation approximates a binary intervention on a single style variable while all other axes remain fixed (Section~\ref{sec:causal_framework}).
+Each operation approximates a binary intervention on a single style variable while all other axes remain fixed (Section~\ref{sec:causal_framework}; Appendix~\ref{app:cross_axis_contamination}).
 To control for rewriting artifact bias---the possibility that the judge prefers original text over any rewrite regardless of style---we additionally generate a same-style double-rewrite for each text (e.g., formal $\to$ formal) to form an original-vs-double-rewrite control pair, following the RATE bias correction protocol \citep{reber2025rate}.
 
 \subsection{Content Preservation Verification}
@@ -74,7 +74,7 @@ The BT model assumes a single latent quality dimension; per-axis GEE decompositi
 
 We evaluate on LLMBar \citep{zeng2023llmbar}, a benchmark of $n = 100$ instruction-response pairs spanning diverse task types, designed to test LLM judges' ability to distinguish response quality with human-verified quality labels.
 LLMBar is well-suited for style sensitivity detection because its human-verified labels provide ground truth against which judge deviations can be measured, and its moderate size permits exhaustive pairwise evaluation with position control.
-We select formality and verbosity as primary axes based on prior evidence that these are among the most commonly reported style sensitivities in LLM judges \citep{wu2023style,saito2023verbosity}.
+We select formality and verbosity as primary axes based on prior evidence that these are among the most commonly reported style sensitivities in LLM judges \citep{wu2023style,saito2023verbosity} (implementation details in Appendix~\ref{app:implementation}).
 
 \subsection{Design Rationale}
 \label{sec:causal_framework}

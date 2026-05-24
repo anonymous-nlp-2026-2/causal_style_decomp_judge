@@ -26,18 +26,18 @@ Target judges span four architectures: GPT-4o (2024-08-06), Qwen3-32B-Instruct (
 \toprule
 Judge & Axis & BT $P$ & Likert $d$ ($p$) & Cat.\ \\
 \midrule
-GPT-4o & Form.\ & .630$^{***}$ & .102 (.332) & $\dagger$ \\
-GPT-4o & Verb.\ & .760$^{***}$ & $-$.095 (.403) & $\dagger$ \\
-GPT-4o & Reg.\ & .570$^{\dagger}$ & $-$.031 (.785) & $\dagger_{\text{e}}$ \\
+GPT-4o & Form.\ & .630$^{***}$ & $-$.041 (.905) & $\dagger$ \\
+GPT-4o & Verb.\ & .760$^{***}$ & .049 (.403) & $\dagger$ \\
+GPT-4o & Reg.\ & .570$^{\dagger}$ & .000 (.785) & $\dagger_{\text{e}}$ \\
 \cmidrule{1-5}
-Qwen3 & Form.\ & .665$^{***}$ & .011 (.908) & $\dagger$ \\
-Qwen3 & Form.$^b$ & .675$^{***}$ & $-$.039 (.600) & $\dagger$ \\
-Qwen3 & Verb.\ & .773$^{***}$ & $-$.151 (.179) & $\dagger$ \\
-Qwen3 & Reg.\ & .553 & $-$.073 (.505) & $\dagger_{\text{e}}$ \\
+Qwen3 & Form.\ & .665$^{***}$ & $-$.052 (.461) & $\dagger$ \\
+Qwen3 & Form.$^b$ & .675$^{***}$ & $-$.025 (.600) & $\dagger$ \\
+Qwen3 & Verb.\ & .773$^{***}$ & .036 (.395) & $\dagger$ \\
+Qwen3 & Reg.\ & .553 & $-$.073 (.373) & $\dagger_{\text{e}}$ \\
 \cmidrule{1-5}
-Llama-70B & Form.\ & .695$^{***}$ & .010 (.846) & $\dagger$ \\
-Llama-70B & Verb.\ & .735$^{***}$ & .020 (.752) & $\dagger$ \\
-Llama-70B & Reg.\ & .635$^{\dagger}$ & .024 (.690) & $\dagger_{\text{e}}$ \\
+Llama-70B & Form.\ & .695$^{***}$ & .010 (.534) & $\dagger$ \\
+Llama-70B & Verb.\ & .735$^{***}$ & .020 (.284) & $\dagger$ \\
+Llama-70B & Reg.\ & .635$^{\dagger}$ & .024 (.524) & $\dagger_{\text{e}}$ \\
 \cmidrule{1-5}
 Gemini & Form.\ & .574$^{*}$ & $-$.082 (.309) & $\dagger_{\text{c}}$ \\
 Gemini & Verb.\ & .708$^{***}$ & .051 (.370) & $\dagger_{\text{c}}$ \\
@@ -71,9 +71,9 @@ Claude & Verb.\ & .541 & $-$.039 (.743) & --- \\
 \label{sec:likert_pairwise}
 
 \paragraph{Head-to-head comparison with RATE.}
-Applying RATE's Likert ATE methodology \citep{reber2025rate} to our formality style-transformed pairs yields Cohen's $d = 0.10$, $p = 0.33$ (non-significant, $n = 88$); pairwise comparison on identical data reveals a 63.0\% formal preference ($p = 0.0004$, Bradley-Terry on all 173 comparisons), confirmed by a consistency-filtered sign test (73.9\%, $p = 0.006$, $n = 46$ consistent pairs).
+Applying RATE's Likert ATE methodology \citep{reber2025rate} to our formality style-transformed pairs yields Cohen's $d = {-}0.04$, $p = 0.91$ (non-significant, $n = 88$); pairwise comparison on identical data reveals a 63.0\% formal preference ($p = 0.0004$, Bradley-Terry on all 173 comparisons), confirmed by a consistency-filtered sign test (73.9\%, $p = 0.006$, $n = 46$ consistent pairs).
 This is the Likert Blindspot: the same data, the same style intervention, two measurement instruments---one detects bias, the other does not.
-A $4\times$ scaled replication ($n = 355$) distinguishes measurement attenuation from insufficient power: the Likert effect size shrinks to $d = {-}0.039$ (near zero) while BT remains stable at $67.5\%$ ($p < 0.0001$)---if the gap were merely statistical power, $d$ would remain non-zero at larger $n$.
+A $4\times$ scaled replication ($n = 355$) distinguishes measurement attenuation from insufficient power: the Likert effect size shrinks to $d = {-}0.025$ (near zero) while BT remains stable at $67.5\%$ ($p < 0.0001$)---if the gap were merely statistical power, $d$ would remain non-zero at larger $n$.
 Bootstrap subsampling confirms $d$ remains near zero as $n$ grows (Appendix~\ref{app:bootstrap_attenuation}).
 Post hoc, attenuation follows a severity spectrum: complete at moderate bias ($d \to 0$, BT 63--67\%) and partial at stronger effects (${>}60\%$ loss, BT ${>}70\%$)---explaining three cross-benchmark exceptions ($\ddagger$, Table~\ref{tab:cross_bench}).
 
@@ -95,7 +95,7 @@ All three interpretations converge on one practical conclusion: single-format au
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{figures/power_curve.pdf}
-\caption{Detection probability at observed effect magnitudes. 80\% power crossings: sign test $n \approx 62$, BT $n \approx 114$, binarized Likert $n \approx 462$, Likert ATE $n \approx 1{,}473$. At typical scales ($n = 50$--$200$, shaded), pairwise methods reach 80\% power while Likert methods remain far below. At $n = 355$, Likert $d = {-}0.039$ confirms the gap is structural, not merely a power issue.}
+\caption{Detection probability at observed effect magnitudes. 80\% power crossings: sign test $n \approx 62$, BT $n \approx 114$, binarized Likert $n \approx 462$, Likert ATE $n \approx 1{,}473$. At typical scales ($n = 50$--$200$, shaded), pairwise methods reach 80\% power while Likert methods remain far below. At $n = 355$, Likert $d = {-}0.025$ confirms the gap is structural, not merely a power issue.}
 \label{fig:power_curve}
 \end{figure}
 
@@ -155,10 +155,10 @@ GPT-4o is the sole judge without large-sample validation on either axis; project
 \subsection{Cross-Judge and Cross-Axis Replication}
 \label{sec:cross_judge}
 
-Two independent judges replicate the formality Blindspot: Qwen3-32B (BT 66.5\%, $p < 0.0001$; Likert $p = 0.908$) and Llama-3.3-70B (BT 69.5\%, $p = 0.0001$; Likert $p = 0.846$).
+Two independent judges replicate the formality Blindspot: Qwen3-32B (BT 66.5\%, $p < 0.0001$; Likert $p = 0.461$) and Llama-3.3-70B (BT 69.5\%, $p = 0.0001$; Likert $p = 0.534$).
 Gemini-2.5-Flash shows a weaker, originality-dominated formality pattern (confirmatory: BT 57.4\%, $p = 0.031$; Likert $d = {-}0.08$, n.s.; Style OR $= 1.64$, n.s.; Orig OR $= 2.51$, $p = 0.002$; \S\ref{sec:direction}).
 
-Verbosity provides the strongest Blindspot: all four target judges show consistent preference (GPT-4o 76.0\%, Qwen3-32B 77.3\%, Llama-70B 73.5\%, Gemini 70.8\%; all $p \leq 0.0001$), while Likert ATE remains non-significant for all ($p = 0.179$--$0.752$).
+Verbosity provides the strongest Blindspot: all four target judges show consistent preference (GPT-4o 76.0\%, Qwen3-32B 77.3\%, Llama-70B 73.5\%, Gemini 70.8\%; all $p \leq 0.0001$), while Likert ATE remains non-significant for all ($p = 0.284$--$0.403$).
 GEE confirms style dominance (Style OR $8.2$--$13.1$, all $p < .0001$; Orig OR $0.38$--$0.49$; Table~\ref{tab:gee}).
 Both rewriting directions favor verbose responses (90.7\%/80.6\%); length-controlled Style OR is unchanged ($<$2\%), and an independent GPT-4o rewriter bounds evaluator-producer overlap to a 22\% reduction (Appendix~\ref{app:rewriter_indep}).
 Length-controlled regression confirms 60\% of the FK cross-axis effect is mediated by sentence length (Sobel $z = 2.15$, $p = .031$); GEE with FK grade as covariate confirms formality effects survive readability control in two of three judges (Appendix~\ref{app:fk_length}).
@@ -169,7 +169,7 @@ These per-axis patterns selectively replicate across benchmarks (6/24 possible c
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{figures/cross_benchmark_heatmap.pdf}
-\caption{Pairwise BT win probabilities across five judges, three benchmarks, and three style axes. Bold: $p < .05$; color intensity encodes significance level. Grey $\times$: not tested. Claude cross-benchmark effects are quality-driven (\S\ref{sec:cross_judge}). Full results in Table~\ref{tab:cross_bench}.}
+\caption{Pairwise BT win probabilities across five judges, three benchmarks, and three style axes. Bold: $p < .05$; color intensity encodes significance level. Grey $\times$: not tested. Claude cross-benchmark effects are quality-driven (\S\ref{sec:cross_judge}; Appendix~\ref{app:claude_crossbench}). Full results in Table~\ref{tab:cross_bench}.}
 \label{fig:cross_bench_heatmap}
 \end{figure}
 
@@ -186,5 +186,5 @@ Moreover, annotators judged only 49--66\% of NLI-passed pairs as showing detecta
 \paragraph{Detection vs.\ amplification.}
 \label{sec:amplification}
 \citet{jeong2025comparative} show that pairwise comparison amplifies style biases (the Comparative Trap).
-The divergence cannot be definitively resolved without human ground-truth measurements; six controls bound amplification risk: (i)~NLI ablation reverses NLI-fail pairs (BT 41.7\%); (ii)~Claude shows benchmark-dependent sensitivity (formality Style OR n.s.\ across three benchmarks; AEval verbosity OR $= 4.76$, $p < .001$); (iii)~cross-axis BT variation inconsistent with uniform amplification; (iv)~rewriting artifact absorbed by GEE; (v)~debiased prompting ($-5.2$/$-13.1$pp), bounding the amplification factor at ${\sim}9$--$17\%$ of the total BT effect; (vi)~four-architecture replication with consistent GEE structure.
+The divergence cannot be definitively resolved without human ground-truth measurements; six controls bound amplification risk: (i)~NLI ablation reverses NLI-fail pairs (BT 41.7\%; Appendix~\ref{app:nli_ablation}); (ii)~Claude shows benchmark-dependent sensitivity (formality Style OR n.s.\ across three benchmarks; AEval verbosity OR $= 4.76$, $p < .001$); (iii)~cross-axis BT variation inconsistent with uniform amplification; (iv)~rewriting artifact absorbed by GEE; (v)~debiased prompting ($-5.2$/$-13.1$pp), bounding the amplification factor at ${\sim}9$--$17\%$ of the total BT effect; (vi)~four-architecture replication with consistent GEE structure.
 Register is exploratory with evaluator-producer overlap and judge-dependent effects (Table~\ref{tab:gee}).

@@ -16,7 +16,7 @@ We propose Controlled Style Decomposition (CSD), combining NLI-gated content con
 Inspired by interventional text analysis \citep{veitch2020adapting}, CSD operates in three stages: style-controlled rewriting along a single axis, NLI entailment verification, and bias measurement via forced-choice comparison.
 CSD requires no access to judge internals and applies post-hoc to any black-box judge.
 Our experiments demonstrate the \emph{Likert Blindspot} across four target judges from independent providers (GPT-4o, Qwen3-32B, Llama-3.3-70B, Gemini-2.5-Flash), a fifth judge (Claude Sonnet~4) with benchmark-dependent sensitivity, three benchmarks, and two primary style axes, with exploratory register evidence.
-On formality data, Likert yields non-significant ATE ($p = 0.332$, $0.908$), while BT detects 63.0\% (GPT-4o, $p = 0.0004$) and 66.5\% (Qwen3-32B, $p < 0.0001$) formal preferences; verbosity shows 77.3\% BT ($p < 0.0001$) invisible to Likert ($p = 0.179$; Figure~\ref{fig:forest_plot}).
+On formality data, Likert yields non-significant effects ($p = 0.905$, $0.461$), while BT detects 63.0\% (GPT-4o, $p = 0.0004$) and 66.5\% (Qwen3-32B, $p < 0.0001$) formal preferences; verbosity shows 77.3\% BT ($p < 0.0001$) invisible to Likert ($p = 0.395$; Figure~\ref{fig:forest_plot}).
 
 Our contributions are both methodological and empirical:
 \begin{itemize}
