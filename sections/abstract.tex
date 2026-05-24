@@ -1,0 +1,9 @@
+\begin{abstract}
+Likert and pairwise scoring produce divergent sensitivity across two primary surface-level style axes, with varying effect sizes across judges, when applied to LLM judges.
+We define this divergence---the \emph{Likert Blindspot}---operationally as statistically significant pairwise sensitivity absent from Likert, without committing to a specific causal mechanism; it admits non-exclusive explanations including measurement attenuation, format amplification, and construct divergence.
+We introduce Controlled Style Decomposition (CSD), a black-box diagnostic quantifying this divergence via NLI-gated content control, per-axis style decomposition, and position-controlled pairwise comparison.
+Across five judges from four providers and two primary axes (formality, verbosity), pairwise reaches significance ($p < 0.001$) where Likert does not ($p > 0.28$), with signal loss exceeding 60\%---replicated across three benchmarks and confirmed by seven statistical methods.
+GEE decomposition reveals distinct per-axis confound structures: verbosity bias is style-dominated (Style OR $3$--$13$, Originality OR ${<}1$), while formality reflects joint style--quality contributions.
+One judge (Claude Sonnet~4) exhibits benchmark-dependent sensitivity, illustrating bias as a judge$\times$benchmark interaction; non-tie concordance (76.6\%, $p < .001$) is more consistent with attenuation than construct divergence.
+Likert-only audits may thus fail to surface style-driven preferences that propagate through pairwise-based alignment pipelines.
+\end{abstract}
