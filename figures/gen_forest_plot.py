@@ -118,7 +118,7 @@ for item in all_rows:
 
 # Axis configuration
 ax.set_xlim(0.45, 0.90)
-ax.set_ylim(-0.6, max_y + 1.5)
+ax.set_ylim(-0.6, max_y + 2.2)
 ax.set_yticks([])
 ax.set_xlabel('P(style-preferred wins)', fontsize=10)
 ax.spines['left'].set_visible(False)
