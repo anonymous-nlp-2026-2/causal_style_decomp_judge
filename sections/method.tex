@@ -15,7 +15,7 @@ To control for rewriting artifact bias (the possibility that the judge prefers o
 \label{sec:nli_gate}
 
 Style-controlled rewriting risks altering semantic content, which would confound the style effect with a content quality effect (the $R \to Q$ path in Figure~\ref{fig:dag}).
-To block this path, we apply a natural language inference (NLI) gate using DeBERTa-v3-large fine-tuned on MNLI \citep{williams2018broad} with an entailment threshold of 0.90, selected as the threshold above which NLI performance plateaus (Appendix~\ref{app:nli_sweep}).
+To block this path, we apply a natural language inference (NLI) gate using DeBERTa-v3-large fine-tuned on Multi-Genre NLI (MNLI; \citealp{williams2018broad}) with an entailment threshold of 0.90, selected as the threshold above which NLI performance plateaus (Appendix~\ref{app:nli_sweep}).
 For axes that preserve information density (formality, register), we apply standard bidirectional entailment: both NLI(original $\to$ rewrite) and NLI(rewrite $\to$ original) must exceed this value.
 For axes that inherently change information density (e.g., verbosity), bidirectional verification is inappropriate because expansion necessarily introduces new content that the original cannot entail.
 We instead apply direction-aware verification: for expansions, only backward entailment (rewrite entails original); for compressions, only forward entailment (original entails rewrite).

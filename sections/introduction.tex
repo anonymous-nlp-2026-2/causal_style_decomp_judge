@@ -6,7 +6,7 @@ We term this the \emph{Likert Blindspot}, an operational descriptor for the meas
 This divergence admits multiple non-exclusive explanations (Likert measurement attenuation, pairwise format amplification \citep{jeong2025comparative}, or construct-level differences), which our controlled design bounds but cannot definitively adjudicate (\S\ref{sec:likert_pairwise}).
 This example reflects a consistent pattern: surface-level style features alone explain most of the variance in judge scores \citep{murugadoss2025sos}, with 76--92\% of preferences originating from style cues \citep{li2026preference,soumik2026judging}.
 
-LLM judges are central infrastructure for NLP evaluation and alignment training (RLHF, DPO), where judge preferences serve as reward signals; any systematic bias propagates through both evaluation leaderboards and model development pipelines.
+LLM judges are central infrastructure for natural language processing (NLP) evaluation and alignment training (reinforcement learning from human feedback [RLHF], direct preference optimization [DPO]), where judge preferences serve as reward signals; any systematic bias propagates through both evaluation leaderboards and model development pipelines.
 Despite this, existing approaches address individual requirements (multi-dimensional style analysis \citep{casse2026concise,wang2026fairjudge}, interventional design \citep{reber2025rate}, population-level correction \citep{dubois2025lc}), but no single framework integrates per-axis decomposition, interventional identification, confound-structure analysis, and black-box applicability.
 Classical psychometrics establishes that pairwise comparison yields higher discriminability than absolute rating \citep{thurstone1927law,david1988method}; our power analysis (Figure~\ref{fig:power_curve}) is quantitatively consistent.
 In the LLM judge setting, this gap has \emph{per-axis} confound signatures: verbosity is style-dominated (Style OR $3$--$13$) while formality is quality-confounded (Table~\ref{tab:gee}), a decomposition not previously applied in LLM judge evaluation.
@@ -15,7 +15,7 @@ We propose Controlled Style Decomposition (CSD), combining NLI-gated content con
 Inspired by interventional text analysis \citep{veitch2020adapting}, CSD operates in three stages: style-controlled rewriting along a single axis, NLI entailment verification, and bias measurement via forced-choice comparison.
 CSD requires no access to judge internals and applies post-hoc to any black-box judge.
 Our experiments demonstrate the \emph{Likert Blindspot} across four target judges from independent providers (GPT-4o, Qwen3-32B, Llama-3.3-70B, Gemini-2.5-Flash), a fifth judge (Claude Sonnet~4) with benchmark-dependent sensitivity, three benchmarks, and two primary style axes, with exploratory register evidence.
-On formality data, Likert yields non-significant effects ($p = 0.905$, $0.461$), while BT detects 63.0\% (GPT-4o, $p = 0.0004$) and 66.5\% (Qwen3-32B, $p < 0.0001$) formal preferences; verbosity shows 77.3\% BT ($p < 0.0001$) invisible to Likert ($p = 0.395$; Figure~\ref{fig:forest_plot}).
+On formality data, Likert yields non-significant effects ($p = 0.905$, $0.461$), while Bradley-Terry (BT) detects 63.0\% (GPT-4o, $p = 0.0004$) and 66.5\% (Qwen3-32B, $p < 0.0001$) formal preferences; verbosity shows 77.3\% BT ($p < 0.0001$) invisible to Likert ($p = 0.395$; Figure~\ref{fig:forest_plot}).
 
 Our contributions are both methodological and empirical:
 \begin{itemize}

@@ -3,7 +3,7 @@
 
 \paragraph{Interventional Approaches to Judge Bias}
 Text-based interventional methods have a growing methodological foundation \citep{feder2021causalm,wu2021polyjuice,feder2022causal}.
-\citet{reber2025rate} propose RATE, which rewrites outputs along style attributes and measures causal effects via Likert ATE; however, our experiments show 60\% of style-transformed pairs receive identical Likert scores, yielding non-significant effects that pairwise comparison detects at $p = 0.006$.
+\citet{reber2025rate} propose RATE, which rewrites outputs along style attributes and measures causal effects via Likert average treatment effect (ATE); however, our experiments show 60\% of style-transformed pairs receive identical Likert scores, yielding non-significant effects that pairwise comparison detects at $p = 0.006$.
 CSD differs in targeting individual style axes, using position-controlled pairwise comparison, and enforcing content preservation via NLI gating.
 \citet{counterfactual2025rhetorical} adopt a similar design at persona-level granularity, whereas CSD intervenes on specific style axes with position control.
 
@@ -16,5 +16,5 @@ Unlike human evaluators, LLM judges acquire format-specific biases through RLHF 
 
 \paragraph{Measurement Format Sensitivity}
 The superiority of pairwise comparison over rating scales has been established since \citet{thurstone1927law}; \citet{carterette2008here} confirm this for information retrieval, and \citet{krosnick1999survey} documents satisficing behavior that may compound the tie inflation we observe.
-Within NLP, \citet{amidei2019likert} review Likert scales \citep{likert1932technique} in NLG evaluation, and \citet{novikova2018rankme} confirm that forced-choice methods detect quality differences that rating scales miss.
+Within NLP, \citet{amidei2019likert} review Likert scales \citep{likert1932technique} in natural language generation (NLG) evaluation, and \citet{novikova2018rankme} confirm that forced-choice methods detect quality differences that rating scales miss.
 The Bradley-Terry model \citep{bradley1952rank} underpins Chatbot Arena \citep{chiang2024chatbot} and AlpacaFarm \citep{dubois2023alpacafarm}; no prior work combines BT with per-axis GEE decomposition to expose confound structures invisible to aggregate scores.

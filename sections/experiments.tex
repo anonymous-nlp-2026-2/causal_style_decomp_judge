@@ -5,12 +5,12 @@
 \subsection{Statistical Framework}
 \label{sec:stat_framework}
 
-The primary family comprises six tests (three target judges $\times$ two axes), corrected via Holm-Bonferroni at $\alpha = 0.05$; Gemini-2.5-Flash serves as confirmatory replication and is excluded from FWER control; as a sensitivity check, all eight tests remain significant under the expanded family (Appendix~\ref{app:holm8}).
+The primary family comprises six tests (three target judges $\times$ two axes), corrected via Holm-Bonferroni at $\alpha = 0.05$; Gemini-2.5-Flash serves as confirmatory replication and is excluded from family-wise error rate (FWER) control; as a sensitivity check, all eight tests remain significant under the expanded family (Appendix~\ref{app:holm8}).
 Table~\ref{tab:main_results} reports both raw and adjusted $p$-values.
 Analyses outside this grid are classified as either \emph{exploratory} (NLI threshold sensitivity sweep, \S\ref{sec:nli_threshold}) or \emph{confirmatory} (consistency filter validation, \S\ref{sec:consistency}).
 Exploratory analyses use uncorrected $p$-values; confirmatory analyses (pipeline validity) are evaluated at $\alpha = 0.05$ without additional correction.
 Bradley-Terry parameters \citep{bradley1952rank,luce1959individual} are estimated via spectral initialization followed by minorization-maximization \citep{hunter2004mm}, using the \texttt{choix} Python library's default L2 regularization ($\alpha = 10^{-6}$).
-In binary-choice BT models, IIA is structurally satisfied; the direction asymmetry in Appendix~\ref{app:bt_gof} (formality: formal-origin 88.9\% vs.\ casual-origin 52.6\%, Fisher $p = 0.015$) reflects heterogeneous treatment effects rather than IIA violation.
+In binary-choice BT models, independence of irrelevant alternatives (IIA) is structurally satisfied; the direction asymmetry in Appendix~\ref{app:bt_gof} (formality: formal-origin 88.9\% vs.\ casual-origin 52.6\%, Fisher $p = 0.015$) reflects heterogeneous treatment effects rather than IIA violation.
 All bootstrap confidence intervals are percentile CIs from 10{,}000 pair-level resamples with seed 42; we verify bootstrap stability by confirming that halving the resample count changes interval widths by $<$1pp.
 GEE models use exchangeable working correlation with sandwich standard errors (robust to correlation misspecification), justified by near-zero estimated within-pair correlations ($\hat{\alpha} \in [-0.25, +0.11]$; Appendix~\ref{app:gee_diagnostics}).
 A prospective power analysis (Appendix~\ref{app:power}) confirms that our sample sizes ($n = 86$--$88$ pairs) provide $>$90\% power to detect BT effects of the observed magnitude ($P \geq 0.63$), whereas Likert requires $4$--$206\times$ the sample size for equivalent power (Figure~\ref{fig:power_curve}).
@@ -161,7 +161,7 @@ Gemini-2.5-Flash shows a weaker, originality-dominated formality pattern (confir
 Verbosity provides the strongest Blindspot: all four target judges show consistent preference (GPT-4o 76.0\%, Qwen3-32B 77.3\%, Llama-70B 73.5\%, Gemini 70.8\%; all $p \leq 0.0001$), while Likert ATE remains non-significant for all ($p = 0.284$--$0.403$).
 GEE confirms style dominance (Style OR $8.2$--$13.1$, all $p < .0001$; Orig OR $0.38$--$0.49$; Table~\ref{tab:gee}).
 Both rewriting directions favor verbose responses (90.7\%/80.6\%); length-controlled Style OR is unchanged ($<$2\%), and an independent GPT-4o rewriter bounds evaluator-producer overlap to a 22\% reduction (Appendix~\ref{app:rewriter_indep}).
-Length-controlled regression confirms 60\% of the FK cross-axis effect is mediated by sentence length (Sobel $z = 2.15$, $p = .031$); under the assumed causal structure (Figure~\ref{fig:dag}), FK acts as a plausible mediator ($S \to \text{FK} \to Y$; \citealp{pearl2009causality}), yielding a direct-effect Style OR of $2.15$ for GPT-4o (total OR $= 2.70$; Appendix~\ref{app:fk_length}).
+Length-controlled regression confirms 60\% of the Flesch-Kincaid (FK) cross-axis effect is mediated by sentence length (Sobel $z = 2.15$, $p = .031$); under the assumed causal structure (Figure~\ref{fig:dag}), FK acts as a plausible mediator ($S \to \text{FK} \to Y$; \citealp{pearl2009causality}), yielding a direct-effect Style OR of $2.15$ for GPT-4o (total OR $= 2.70$; Appendix~\ref{app:fk_length}).
 
 These per-axis patterns selectively replicate across benchmarks (6/24 possible cells; Figure~\ref{fig:cross_bench_heatmap}), targeting the strongest effects: Llama-70B formality on AlpacaEval (BT 75.0\%, Style OR $= 7.64$) is strong enough for Likert detection ($\ddagger$ rows), confirming the severity spectrum.
 The selective replication strategy prioritizes cells where effects are strongest, providing an informative lower bound on cross-benchmark generalization without requiring exhaustive evaluation of all judge--axis--benchmark combinations.
@@ -177,7 +177,7 @@ The selective replication strategy prioritizes cells where effects are strongest
 \label{sec:nli_validation}
 
 \paragraph{Content preservation.}
-Two independent annotators evaluated 100 NLI-scored pairs (50 per axis; 70 gate-passed, 30 gate-failed), confirming $98.6\%$ gate pass precision ($69/70$; AC$_1 = 0.96$; Appendix~\ref{app:annotation_agreement}).
+Two independent annotators evaluated 100 NLI-scored pairs (50 per axis; 70 gate-passed, 30 gate-failed), confirming $98.6\%$ gate pass precision ($69/70$; Gwet's AC$_1 = 0.96$; Appendix~\ref{app:annotation_agreement}).
 \label{sec:nli_threshold}
 BT remains stable (${\leq}3$pp variation) across 11 NLI thresholds (Appendix~\ref{app:nli_sweep}), confirming that results are not artifacts of a particular gating stringency.
 Annotators judged only 49--66\% of NLI-passed pairs as showing detectable style change, suggesting observed effects represent a diluted lower bound on true style sensitivity: the NLI gate retains pairs with subtle rewrites that human annotators cannot detect, yet judges still systematically prefer one variant.
