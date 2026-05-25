@@ -1,4 +1,6 @@
-\enlargethispage{2\baselineskip}
 \section{Conclusion}
 \label{sec:conclusion}
-CSD yields two findings: the \emph{Likert Blindspot}---divergent pairwise/Likert verdicts (8/8 primary, 6/24 cross-benchmark cells; $d \!\to\! 0$ at $n{=}355$)---and per-axis confound structures via GEE (verbosity style-dominated, formality conditional, register judge-dependent); concordance ($p < .001$) favors attenuation over divergence.
+CSD yields two findings: the \emph{Likert Blindspot} (divergent pairwise/Likert verdicts in 8/8 LLMBar cells, with 6/24 cross-benchmark cells tested (2 Blindspot, 4 both-significant); $d \!\to\! 0$ at $n{=}355$) and per-axis confound structures via GEE (verbosity style-dominated, formality conditional, register judge-dependent); concordance ($p < .001$) favors attenuation over divergence.
+These results carry a practical recommendation: style-bias audits that rely exclusively on Likert scoring risk false negatives at typical benchmark sizes ($n < 200$); pairing with pairwise evaluation or increasing $n$ by $3$--$4\times$ provides more complete coverage.
+For alignment pipelines, the per-axis confound structure implies that verbosity preferences in RLHF reward signals are predominantly style-driven, while formality preferences partially reflect genuine quality differences, a distinction invisible without per-axis decomposition and undetectable by aggregate bias metrics.
+CSD generalizes to any surface-level axis with content-preserving rewrites; deeper axes (e.g., reasoning depth, factual density) that resist content-neutral manipulation remain open for future work.

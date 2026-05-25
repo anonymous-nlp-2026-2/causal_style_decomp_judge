@@ -1,34 +1,33 @@
 \section{Introduction}
 
-\emph{``What is the average height for a male?''} --- given a formal and a casual answer with verified identical content (NLI entailment $= 0.993$), GPT-4o rates the casual variant \emph{higher} on a 1--10 Likert scale (8 vs.\ 5), yet consistently selects the formal variant in pairwise comparison.
+\emph{``What is the average height for a male?''} In our experiments, given a formal and a casual answer with verified identical content (NLI entailment $= 0.993$), GPT-4o rates the casual variant \emph{higher} on a 1--10 Likert scale (8 vs.\ 5), yet consistently selects the formal variant in pairwise comparison.
 Same judge, same texts, opposite conclusions.
-We term this the \emph{Likert Blindspot}---an operational descriptor for the measurement-mode divergence where pairwise comparison detects statistically significant style sensitivity that Likert scoring fails to detect on the same data, without committing to a specific causal mechanism.
-This divergence admits multiple non-exclusive explanations---Likert measurement attenuation, pairwise format amplification \citep{jeong2025comparative}, or construct-level differences between absolute and comparative evaluation---which our controlled design bounds but cannot definitively adjudicate (\S\ref{sec:likert_pairwise}).
-Under construct divergence, pairwise and Likert modes may measure distinct constructs---comparative sensitivity versus absolute quality judgment---in which case the divergence reflects measurement scope rather than measurement failure, with different practical implications for audit design (\S\ref{sec:likert_pairwise}).
+We term this the \emph{Likert Blindspot}, an operational descriptor for the measurement-mode divergence where pairwise comparison detects statistically significant style sensitivity that Likert scoring fails to detect on the same data, without committing to a specific causal mechanism.
+This divergence admits multiple non-exclusive explanations (Likert measurement attenuation, pairwise format amplification \citep{jeong2025comparative}, or construct-level differences), which our controlled design bounds but cannot definitively adjudicate (\S\ref{sec:likert_pairwise}).
 This example reflects a consistent pattern: surface-level style features alone explain most of the variance in judge scores \citep{murugadoss2025sos}, with 76--92\% of preferences originating from style cues \citep{li2026preference,soumik2026judging}.
 
-LLM judges are central infrastructure for NLP evaluation and alignment training (RLHF, DPO), where judge preferences serve as reward signals; any systematic bias propagates through both evaluation leaderboards and model development pipelines.
-Despite this, existing approaches address individual requirements (multi-dimensional style analysis \citep{casse2026concise,wang2026fairjudge}, interventional design \citep{reber2025rate}, population-level correction \citep{dubois2025lc}), but no single framework integrates per-axis decomposition, interventional identification, per-instance diagnostics, and black-box applicability.
-The classical psychometric literature establishes that pairwise comparison yields higher discriminability than absolute rating \citep{thurstone1927law,david1988method}, and our power analysis (Figure~\ref{fig:power_curve}) is quantitatively consistent: Likert requires $4$--$206\times$ the sample size.
-In the LLM judge setting, this sensitivity gap exhibits content-specific structure: the Blindspot has \emph{per-axis} confound signatures---verbosity is style-dominated (Style OR $3$--$13$) while formality is quality-confounded (Table~\ref{tab:gee})---and GEE decomposition separates the sources into style-specific and quality-correlated components, a decomposition not previously applied in LLM judge evaluation.
+LLM judges are central infrastructure for natural language processing (NLP) evaluation and alignment training (reinforcement learning from human feedback [RLHF], direct preference optimization [DPO]), where judge preferences serve as reward signals; any systematic bias propagates through both evaluation leaderboards and model development pipelines.
+Despite this, existing approaches address individual requirements (multi-dimensional style analysis \citep{casse2026concise,wang2026fairjudge}, interventional design \citep{reber2025rate}, population-level correction \citep{dubois2025lc}), but no single framework integrates per-axis decomposition, interventional identification, confound-structure analysis, and black-box applicability.
+Classical psychometrics establishes that pairwise comparison yields higher discriminability than absolute rating \citep{thurstone1927law,david1988method}; our power analysis (Figure~\ref{fig:power_curve}) is quantitatively consistent.
+In the LLM judge setting, this gap has \emph{per-axis} confound signatures: verbosity is style-dominated (Style OR $8$--$13$) while formality is quality-confounded (Table~\ref{tab:gee}), a decomposition not previously applied in LLM judge evaluation.
 
 We propose Controlled Style Decomposition (CSD), combining NLI-gated content control, per-axis style decomposition, and position-controlled pairwise comparison.
 Inspired by interventional text analysis \citep{veitch2020adapting}, CSD operates in three stages: style-controlled rewriting along a single axis, NLI entailment verification, and bias measurement via forced-choice comparison.
 CSD requires no access to judge internals and applies post-hoc to any black-box judge.
 Our experiments demonstrate the \emph{Likert Blindspot} across four target judges from independent providers (GPT-4o, Qwen3-32B, Llama-3.3-70B, Gemini-2.5-Flash), a fifth judge (Claude Sonnet~4) with benchmark-dependent sensitivity, three benchmarks, and two primary style axes, with exploratory register evidence.
-On formality data, Likert yields non-significant effects ($p = 0.905$, $0.461$), while BT detects 63.0\% (GPT-4o, $p = 0.0004$) and 66.5\% (Qwen3-32B, $p < 0.0001$) formal preferences; verbosity shows 77.3\% BT ($p < 0.0001$) invisible to Likert ($p = 0.395$; Figure~\ref{fig:forest_plot}).
+On formality data, Likert yields non-significant effects ($p = 0.905$, $0.461$), while Bradley-Terry (BT) detects 63.0\% (GPT-4o, $p = 0.0004$) and 66.5\% (Qwen3-32B, $p < 0.0001$) formal preferences; verbosity shows 77.3\% BT ($p < 0.0001$) invisible to Likert ($p = 0.395$; Figure~\ref{fig:forest_plot}).
 
 Our contributions are both methodological and empirical:
 \begin{itemize}
-    \item \textbf{Empirical finding:} the first systematic demonstration that pairwise and Likert formats yield qualitatively divergent style sensitivity profiles across four judges, three benchmarks, and two axes with position control, with selective cross-benchmark validation targeting the strongest effects (Table~\ref{tab:main_results}).
-    \item \textbf{Analytical contribution:} GEE conditional decomposition reveals per-axis confound structures invisible to aggregate analysis---verbosity is style-dominated (Style OR $3$--$13$) while formality reflects joint style--quality confounding (Table~\ref{tab:gee}).
+    \item \textbf{Empirical finding:} the first per-axis demonstration that pairwise and Likert formats yield qualitatively divergent style sensitivity profiles across four judges, three benchmarks, and two axes with position control, with selective cross-benchmark validation targeting the strongest effects (Table~\ref{tab:main_results}).
+    \item \textbf{Analytical contribution:} GEE conditional decomposition reveals per-axis confound structures invisible to aggregate analysis: verbosity is style-dominated (Style OR $8$--$13$) while formality reflects joint style--quality confounding (Table~\ref{tab:gee}).
     \item \textbf{Practical contribution:} CSD operates as a black-box diagnostic requiring no access to model internals, applicable post-hoc to any judge (\S\ref{sec:method}).
 \end{itemize}
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.88\textwidth]{figures/pipeline_diagram.pdf}
-\vspace{-8pt}
+\includegraphics[width=0.92\textwidth]{figures/pipeline_diagram.pdf}
+\vspace{-6pt}
 \caption{CSD pipeline overview. Numbers indicate sample attrition at each stage.}
 \label{fig:pipeline}
 \end{figure*}
