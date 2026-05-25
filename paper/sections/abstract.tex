@@ -1,10 +1,10 @@
 \begin{abstract}
 Likert and pairwise scoring yield divergent style-sensitivity profiles in LLM judges.
 We define the \emph{Likert Blindspot}: statistically significant pairwise sensitivity absent from Likert, admitting non-exclusive explanations (measurement attenuation, format amplification, construct divergence).
-We introduce Controlled Style Decomposition (CSD), a black-box diagnostic combining NLI-gated content control, per-axis style decomposition, and position-controlled pairwise comparison.
+We introduce Controlled Style Decomposition (CSD), a black-box diagnostic combining natural language inference (NLI) gated content control, per-axis style decomposition, and position-controlled pairwise comparison.
 Across four target judges and two axes (formality, verbosity), pairwise reaches significance ($p < 0.001$) where Likert does not ($p > 0.28$), selectively replicated across three benchmarks and confirmed by seven statistical methods; a fifth judge shows benchmark-dependent sensitivity.
 At $n = 355$, Likert effect sizes collapse toward zero while pairwise remains stable; at $n = 330$, Likert begins detecting only the strongest effects, revealing a $3$--$4\times$ efficiency gap rather than absolute failure.
-Generalized estimating equation (GEE) decomposition shows per-axis confound structures: verbosity is style-dominated (Style OR $8$--$13$ at $n{=}86$--$88$), while formality reflects joint style--quality confounding.
+Generalized estimating equation (GEE) decomposition shows per-axis confound structures: verbosity is style-dominated (style odds ratio [OR] $8$--$13$ at $n{=}86$--$88$), while formality reflects joint style--quality confounding.
 Non-tie concordance (76.6\%, $p < .001$) favors attenuation over construct divergence.
 Likert-only audits risk missing style preferences that propagate through pairwise-based alignment pipelines\footnote{Code and data are available at \url{https://anonymous.4open.science/r/causal_style_decomp_judge-5EBE/}.}.
 \end{abstract}
