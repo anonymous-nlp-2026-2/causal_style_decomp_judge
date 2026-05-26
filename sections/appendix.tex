@@ -1,6 +1,6 @@
 \appendix
 
-\noindent\emph{Organization: design rationale (A$^*$), confound analysis (A--B), model diagnostics (C), independence tests (D), gate validation (E--F), equivalence testing (G), statistical details (H--K), sensitivity analyses (L--N), artifact controls (O), implementation (P), multiplicity (Q), cross-axis contamination (R), FK length-control (R$'$), human annotation agreement (S), cross-benchmark replication (T), Claude cross-benchmark (U), rewriting prompts (V), non-tie concordance (W).}
+\noindent\emph{Organization: design rationale and confound structure (A--B), consistency and GEE diagnostics (C--D), rewriter independence and gate validation (E--G), equivalence testing (H), BT analysis and statistical details (I--L), sensitivity analyses (M--N), Likert scale and ablation controls (O--Q), implementation and multiplicity (R--S), cross-axis contamination and FK analysis (T--U), annotation agreement (V), cross-benchmark replication (W--X), rewriting prompts (Y), non-tie concordance (Z).}
 
 \section{Design Rationale}
 \label{app:design_rationale}
@@ -9,7 +9,7 @@ Three variables govern the observed judge score $Y$: the style attribute $S$ (e.
 Both $S$ and $Q$ causally influence $Y$; the goal of CSD is to approximate the effect $S \to Y$ while blocking confounding through $Q$.
 Style-controlled rewriting generates a text pair that differs along a single style axis, but any rewriting operation risks inadvertently altering content quality ($R \to Q$).
 The NLI gate (\S\ref{sec:nli_gate}) blocks this path, yielding a controlled estimate of the $S \to Y$ effect.
-Our approach provides interventional rather than formal causal evidence: we do not claim that the DAG in Figure~\ref{fig:dag} is a complete structural causal model, nor do we invoke SUTVA or consistency assumptions from the potential outcomes framework.
+Our approach provides interventional rather than formal causal evidence: we do not claim that the directed acyclic graph (DAG) in Figure~\ref{fig:dag} is a complete structural causal model, nor do we invoke SUTVA or consistency assumptions from the potential outcomes framework.
 ``Controlled'' in this context refers to experimentally controlled rewriting conditions, not formal causal identification in the potential-outcomes sense.
 Our identification rests on three operational assumptions: (i)~the NLI gate approximates content preservation, blocking the $R \to Q$ path; (ii)~position swapping controls for presentation-order effects; and (iii)~the style rewrite introduces no systematic differences beyond the target axis.
 
@@ -17,16 +17,16 @@ Our identification rests on three operational assumptions: (i)~the NLI gate appr
 \label{app:direction}
 
 The formality axis exhibits a pronounced direction asymmetry: the judge selects the formal variant in 78.8\% of formal-is-rewrite pairs ($p = 0.001$) but only 54.5\% of casual-is-rewrite pairs ($p = 0.83$).
-This asymmetry suggests that original quality $Q$ and formality $S$ are partially confounded---formally written texts may be inherently perceived as higher quality.
+This asymmetry suggests that original quality $Q$ and formality $S$ are partially confounded, as formally written texts may be inherently perceived as higher quality.
 To quantify this, we fit a GEE logistic model (exchangeable correlation) with both formality and original-preference as predictors.
 After controlling for original preference, the formality effect remains significant ($\text{OR} = 2.58$, $p = 0.002$), and the original-preference effect is also significant ($\text{OR} = 2.32$, $p = 0.006$).
 The formality preference thus survives adjustment for original-preference confounding, though the significant original-preference effect indicates that quality--style confounding is present and non-negligible.
 
 At $n = 88$, the Qwen3-32B formality Style OR ($4.20$) exceeded the GPT-4o estimate ($2.58$), but a scaled replication ($n = 355$) corrects this to $2.15$ ($p < 0.0001$), comparable to GPT-4o and consistent with small-sample upward bias rather than evaluator-producer inflation of the style effect.
 The originality confound remains stronger ($4.99$ vs.\ $2.32$), consistent with evaluator-producer bias inflating the originality component (Limitations).
-The directional agreement between judges---both favor formal text after controlling for originality---supports the existence of formality bias, but the effect magnitude from Qwen3-32B should not be directly compared with GPT-4o.
+The directional agreement between judges (both favor formal text after controlling for originality) supports the existence of formality bias, but the effect magnitude from Qwen3-32B should not be directly compared with GPT-4o.
 
-The NLI gate blocks \emph{content} changes but cannot block quality perception shifts that are themselves mediated by style---a fundamental identifiability limit of any text-rewriting approach.
+The NLI gate blocks \emph{content} changes but cannot block quality perception shifts that are themselves mediated by style, a fundamental identifiability limit of any text-rewriting approach.
 
 \section{Consistency Filter Robustness}
 \label{sec:consistency}
@@ -120,7 +120,7 @@ GPT-4o reg.\ & 1.88 [1.08, 3.28] & 2.21 [1.26, 3.86] \\
 Qwen3 reg.\ & 1.91 [1.01, 3.58] & 5.72 [3.02, 10.82] \\
 Llama-70B reg.\ & 3.33 [1.73, 6.42] & 3.07 [1.60, 5.92] \\
 \bottomrule
-\multicolumn{3}{l}{\footnotesize $^a$ $n = 355$; other rows: $n = 88$.}
+\multicolumn{3}{l}{\footnotesize $^a$ $n = 355$; formality rows: $n = 88$; verbosity rows: $n = 86$.}
 \end{tabular}
 \end{table}
 
@@ -323,15 +323,15 @@ MTB & GPT-4o & Form.\ & .692 [.623, .753] \\
 
 To distinguish measurement attenuation from insufficient statistical power, we subsample the $n = 355$ formality replication (Qwen3-32B) at seven sample sizes and compute Likert Cohen's $d$ with bootstrap 95\% CIs at each (Table~\ref{tab:attenuation}).
 Under a power limitation, $d$ would remain constant while only $p$-values improve with larger $n$; under measurement attenuation, $d$ itself converges to zero.
-The data support attenuation: $d_{\text{median}} = {-}0.017$ across all sample sizes, with CIs narrowing from ${\pm}0.3$ to ${\pm}0.1$ but never excluding zero.
-The same data yield BT $= 66.5\%$ ($p < 0.0001$), confirming that the pairwise signal is robust.
+The data support attenuation: the bootstrap median $d = {-}0.017$ across all sample sizes (the point estimate at $n = 355$ is $d = {-}0.025$; Table~\ref{tab:main_results}), with CIs narrowing from ${\pm}0.3$ to ${\pm}0.1$ but never excluding zero.
+The same data yield BT $= 67.5\%$ ($p < 0.0001$), confirming that the pairwise signal is robust.
 Verbosity shows a similar pattern ($d \approx 0.15$--$0.19$, stable, CIs always containing zero; BT $= 76$--$77\%$, $p < 0.0001$).
 Within the agnostic framework of \S\ref{sec:likert_pairwise}, this evidence favors the measurement attenuation interpretation but does not exclude construct divergence.
 
 \begin{table}[h]
 \centering
 \small
-\caption{Bootstrap attenuation analysis: formality $\times$ Qwen3-32B. Likert $d$ remains flat near zero across sample sizes while BT is stable at 66.5\%.}
+\caption{Bootstrap attenuation analysis: formality $\times$ Qwen3-32B. Bootstrap median Likert $d$ remains flat near zero across sample sizes while BT is stable at 67.5\%. Point estimate at $n = 355$: $d = {-}0.025$ (Table~\ref{tab:main_results}).}
 \label{tab:attenuation}
 \begin{tabular}{@{}rccc@{}}
 \toprule
@@ -353,7 +353,7 @@ $n$ & Likert $d$ & 95\% CI & Contains 0? \\
 
 Table~\ref{tab:power} reports the sample size required for Likert ATE to achieve 80\% power at observed effect sizes across all six judge$\times$axis cells.
 Required sample sizes range from $336$ (Qwen3-32B verbosity, $d = 0.153$) to $27{,}159$ (Qwen3-32B formality, $d = {-}0.017$), representing $4$--$206\times$ the current $n$.
-For five of six cells, the required $n$ exceeds $1{,}200$---far beyond typical evaluation budgets---converging with the bootstrap attenuation curve (Appendix~\ref{app:bootstrap_attenuation}) to confirm the Blindspot as a structural measurement limitation.
+For five of six cells, the required $n$ exceeds $1{,}200$, far beyond typical evaluation budgets, converging with the bootstrap attenuation curve (Appendix~\ref{app:bootstrap_attenuation}) to confirm the Blindspot as a structural measurement limitation.
 
 \begin{table}[h]
 \centering
@@ -441,7 +441,7 @@ GEE conditional decomposition at $n = 330$ confirms substantial shrinkage from $
 Despite shrinkage, verbosity remains style-dominated for these three judges (Style OR $2.5$--$4.0$, all $p < .001$; Orig OR $0.52$--$0.69$).
 Claude shows a non-significant style effect at $n = 330$ (Style OR $= 1.22$, $p = .134$), with its elevated BT reflecting originality rather than style preference (Orig OR $= 1.69$).
 As predicted by the power analysis (Figure~\ref{fig:power_curve}), Likert begins detecting the strongest effects at $n \approx 330$ (Qwen3 $d = .15$, $p < .001$; Llama $d = .16$, $p < .001$), while two judges maintain the Blindspot (Claude $d = .03$, NS; Gemini borderline $d = .09$, $p = .02$ by Wilcoxon but $p = .11$ by $t$-test).
-The efficiency gap---Likert requiring $3$--$4\times$ the sample size pairwise needs---rather than absolute failure, is the practical concern.
+The efficiency gap (Likert requiring $3$--$4\times$ the sample size pairwise needs), rather than absolute failure, is the practical concern.
 
 \begin{table}[h]
 \centering
@@ -468,7 +468,7 @@ Claude S4 & .608$^{***}$ & [.567, .649] & .032 (.317) & $\dagger$ \\
 To test whether the Blindspot reflects integer-scale granularity rather than a paradigm difference between absolute and relative evaluation, we replicate the formality experiment using a 100-point continuous scale ($1$--$100$) with three judges (Table~\ref{tab:likert100}).
 All three judges remain non-significant (all $p > 0.15$).
 Tie rates decrease substantially with finer granularity (1--10 scale: 58--73\%; 1--100 scale: 40--66\%), yet ATE remains non-significant, confirming the gap reflects measurement mode rather than scale granularity \citep{preston2000scale}.
-Judges differ markedly in effective granularity usage: GPT-4o clusters scores into ${\sim}5$ distinct bins (modes at 70, 75, 80), Qwen3-32B uses ${\sim}20$ distinct values spanning $45$--$95$, and Llama-70B exploits $50{+}$ unique scores with near-uniform coverage---yet none resolves the Blindspot.
+Judges differ markedly in effective granularity usage: GPT-4o clusters scores into ${\sim}5$ distinct bins (modes at 70, 75, 80), Qwen3-32B uses ${\sim}20$ distinct values spanning $45$--$95$, and Llama-70B exploits $50{+}$ unique scores with near-uniform coverage, yet none resolves the Blindspot.
 Score distributions are unimodal and right-skewed for all three judges, with medians in the $72$--$80$ range; the score \emph{difference} distributions (original minus rewrite) are symmetric around zero, confirming no net directional shift under Likert scoring.
 
 \begin{table}[h]
@@ -516,7 +516,7 @@ Verbosity & 77.3\% & 75.0\% & 76.0\% \\
 \label{app:artifact_control}
 
 Same-style double-rewrite (DR) controls quantify the rewriting artifact using BT models (consistent with all other pairwise analyses).
-Table~\ref{tab:artifact} reports BT $P(\text{original})$---the probability the judge prefers the original over its same-style DR.
+Table~\ref{tab:artifact} reports BT $P(\text{original})$, the probability the judge prefers the original over its same-style DR.
 Both judges systematically prefer LLM-polished text across axes; for verbosity, BT $P(\text{original}) < 0.17$ indicates that rewriting quality dominates when content is held constant, validating the GEE decomposition that separates style from artifact effects.
 Same-style double-rewrite controls for style-neutral polishing artifacts but cannot exclude style-specific polishing interactions (e.g., formal rewriting may polish differently than casual rewriting).
 
@@ -543,8 +543,8 @@ Verb.\ & GPT-4o & .167 [.084, .262] & ${<}.0001$ \\
 
 \paragraph{Models and APIs.}
 Style-controlled rewriting uses Qwen3-32B (temperature $0.7$, top-$p$ $0.9$).
-Target judges: GPT-4o (\texttt{gpt-4o-2024-08-06}, accessed April--May 2026), Qwen3-32B (locally hosted), Llama-3.3-70B (locally hosted via vLLM).
-Claude Sonnet 4 (\texttt{claude-sonnet-4-20250514}, accessed May 2026) provides discriminative validity evidence with benchmark-dependent sensitivity.
+Target judges: GPT-4o (\texttt{gpt-4o-2024-08-06}), Qwen3-32B (locally hosted), Llama-3.3-70B (locally hosted via vLLM).
+Claude Sonnet 4 (\texttt{claude-sonnet-4-20250514}) provides discriminative validity evidence with benchmark-dependent sensitivity.
 All judge calls use temperature $0$ and $\texttt{max\_tokens} = 2048$.
 
 \paragraph{NLI gate.}
@@ -561,8 +561,6 @@ LLMBar \citep{zeng2023llmbar}: 100 instruction-response pairs ($n = 88$ after NL
 AlpacaEval \citep{dubois2025lc}: 100 sampled pairs.
 MT-Bench \citep{zheng2023judging}: 80 multi-turn pairs.
 
-\paragraph{Code and data.}
-All code, prompts, and experimental data will be released upon acceptance under an open-source license.
 
 \section{Holm-Bonferroni Sensitivity Analysis}
 \label{app:holm8}
@@ -663,7 +661,7 @@ Annotator~1 (A1) judged 99/100 pairs content-preserving; Annotator~2 (A2) judged
 
 \paragraph{Agreement.}
 On the \emph{preserves\_meaning} label, 96/100 pairs are concordant, yielding Gwet's AC$_1 = 0.958$ \citep{gwet2008ac1}.
-Cohen's $\kappa = {-}0.015$ is misleading here: with ${>}96\%$ positive prevalence, chance agreement is near-ceiling and $\kappa$ is compressed toward zero regardless of actual agreement---the well-documented prevalence paradox \citep{feinstein1990kappa}.
+Cohen's $\kappa = {-}0.015$ is misleading here: with ${>}96\%$ positive prevalence, chance agreement is near-ceiling and $\kappa$ is compressed toward zero regardless of actual agreement, the well-documented prevalence paradox \citep{feinstein1990kappa}.
 AC$_1$ is the appropriate statistic under such extreme marginal distributions.
 
 \paragraph{Gate pass precision.}
@@ -746,7 +744,7 @@ MTB & Form.\ & .733$^{***}$ & .233 (${<}.001$) & 1.64 (.364) & 11.85 (${<}.001$)
 \paragraph{Formality.}
 Claude's formality Style OR is non-significant across all three benchmarks ($1.47$/$1.99$/$1.64$, all $p > .08$), indicating consistently low formality sensitivity regardless of benchmark.
 The elevated BT on AEval (69.8\%) and MT-Bench (73.3\%) is driven entirely by Orig OR ($9.33$/$11.85$, both $p < .001$): Claude detects quality differences between original and counterfactual texts without exhibiting formality preference.
-AEval formality produces a Blindspot (BT significant, Likert n.s.), but GEE decomposition reveals this as quality detection rather than style sensitivity---illustrating why aggregate BT alone is insufficient for bias attribution.
+AEval formality produces a Blindspot (BT significant, Likert n.s.), but GEE decomposition reveals this as quality detection rather than style sensitivity, illustrating why aggregate BT alone is insufficient for bias attribution.
 
 \paragraph{Verbosity.}
 AEval verbosity is the sole configuration where Claude exhibits genuine style sensitivity (Style OR $= 4.76$, $p < .001$; Orig OR $= 0.87$, n.s.), a style-dominated pattern.
@@ -808,18 +806,8 @@ Concordance is highest for verbosity ($74$--$88\%$) and for Llama-70B across bot
 
 These results favor the measurement attenuation interpretation: when Likert scoring does differentiate between texts, its preference direction aligns with pairwise judgment in more than three-quarters of cases.
 The primary driver of the Blindspot is thus the high Likert tie rate (60--73\% across conditions) rather than a fundamental disagreement between the two evaluation paradigms about what constitutes quality.
-The ${\sim}23\%$ discordance rate leaves room for partial construct divergence---pairwise comparison may access quality dimensions that Likert cannot express---but the dominant pattern is signal attenuation through discretization and ceiling effects.
+The ${\sim}23\%$ discordance rate leaves room for partial construct divergence (pairwise comparison may access quality dimensions that Likert cannot express), but the dominant pattern is signal attenuation through discretization and ceiling effects.
 
-\section*{Code and Data}
 
-Code and data will be released upon acceptance.
-
-\section*{Use of AI Assistants}
-\label{app:ai-assistants}
-
-We used Claude (Anthropic) as an AI coding and writing assistant throughout this work. Specifically:
-\begin{itemize}
-    \item \textbf{Code:} drafting experiment scripts, data-processing pipelines, and analysis utilities; debugging and refactoring.
-    \item \textbf{Writing:} drafting and revising paper sections, polishing prose, and reformatting LaTeX.
-    \item \textbf{Literature:} summarizing related papers to inform the related-work section.
-\end{itemize}
+\section*{Use of AI Assistance}
+We used Claude for coding, code drafting, debugging, and language polishing.

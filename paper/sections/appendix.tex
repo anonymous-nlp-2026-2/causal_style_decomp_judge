@@ -1,6 +1,6 @@
 \appendix
 
-\noindent\emph{Organization: design rationale (A$^*$), confound analysis (A--B), model diagnostics (C), independence tests (D), gate validation (E--F), equivalence testing (G), statistical details (H--K), sensitivity analyses (L--N), artifact controls (O), implementation (P), multiplicity (Q), cross-axis contamination (R), FK length-control (R$'$), human annotation agreement (S), cross-benchmark replication (T), Claude cross-benchmark (U), rewriting prompts (V), non-tie concordance (W).}
+\noindent\emph{Organization: design rationale and confound structure (A--B), consistency and GEE diagnostics (C--D), rewriter independence and gate validation (E--G), equivalence testing (H), BT analysis and statistical details (I--L), sensitivity analyses (M--N), Likert scale and ablation controls (O--Q), implementation and multiplicity (R--S), cross-axis contamination and FK analysis (T--U), annotation agreement (V), cross-benchmark replication (W--X), rewriting prompts (Y), non-tie concordance (Z).}
 
 \section{Design Rationale}
 \label{app:design_rationale}
@@ -9,7 +9,7 @@ Three variables govern the observed judge score $Y$: the style attribute $S$ (e.
 Both $S$ and $Q$ causally influence $Y$; the goal of CSD is to approximate the effect $S \to Y$ while blocking confounding through $Q$.
 Style-controlled rewriting generates a text pair that differs along a single style axis, but any rewriting operation risks inadvertently altering content quality ($R \to Q$).
 The NLI gate (\S\ref{sec:nli_gate}) blocks this path, yielding a controlled estimate of the $S \to Y$ effect.
-Our approach provides interventional rather than formal causal evidence: we do not claim that the DAG in Figure~\ref{fig:dag} is a complete structural causal model, nor do we invoke SUTVA or consistency assumptions from the potential outcomes framework.
+Our approach provides interventional rather than formal causal evidence: we do not claim that the directed acyclic graph (DAG) in Figure~\ref{fig:dag} is a complete structural causal model, nor do we invoke SUTVA or consistency assumptions from the potential outcomes framework.
 ``Controlled'' in this context refers to experimentally controlled rewriting conditions, not formal causal identification in the potential-outcomes sense.
 Our identification rests on three operational assumptions: (i)~the NLI gate approximates content preservation, blocking the $R \to Q$ path; (ii)~position swapping controls for presentation-order effects; and (iii)~the style rewrite introduces no systematic differences beyond the target axis.
 
@@ -543,8 +543,8 @@ Verb.\ & GPT-4o & .167 [.084, .262] & ${<}.0001$ \\
 
 \paragraph{Models and APIs.}
 Style-controlled rewriting uses Qwen3-32B (temperature $0.7$, top-$p$ $0.9$).
-Target judges: GPT-4o (\texttt{gpt-4o-2024-08-06}, accessed April--May 2026), Qwen3-32B (locally hosted), Llama-3.3-70B (locally hosted via vLLM).
-Claude Sonnet 4 (\texttt{claude-sonnet-4-20250514}, accessed May 2026) provides discriminative validity evidence with benchmark-dependent sensitivity.
+Target judges: GPT-4o (\texttt{gpt-4o-2024-08-06}), Qwen3-32B (locally hosted), Llama-3.3-70B (locally hosted via vLLM).
+Claude Sonnet 4 (\texttt{claude-sonnet-4-20250514}) provides discriminative validity evidence with benchmark-dependent sensitivity.
 All judge calls use temperature $0$ and $\texttt{max\_tokens} = 2048$.
 
 \paragraph{NLI gate.}
@@ -809,12 +809,5 @@ The primary driver of the Blindspot is thus the high Likert tie rate (60--73\% a
 The ${\sim}23\%$ discordance rate leaves room for partial construct divergence (pairwise comparison may access quality dimensions that Likert cannot express), but the dominant pattern is signal attenuation through discretization and ceiling effects.
 
 
-\section*{Use of AI Assistants}
-\label{app:ai-assistants}
-
-\noindent We used Claude (Anthropic) as an AI coding and writing assistant throughout this work. Specifically:
-\begin{itemize}
-    \item \textbf{Code:} drafting experiment scripts, data-processing pipelines, and analysis utilities; debugging and refactoring.
-    \item \textbf{Writing:} drafting and revising paper sections, polishing prose, and reformatting LaTeX.
-    \item \textbf{Literature:} summarizing related papers to inform the related-work section.
-\end{itemize}
+\section*{Use of AI Assistance}
+We used Claude for coding, code drafting, debugging, and language polishing.

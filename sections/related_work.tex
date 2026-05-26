@@ -9,9 +9,9 @@ CSD differs in targeting individual style axes, using position-controlled pairwi
 
 \paragraph{Style Bias in LLM Judges}
 The foundational LLM-as-judge framework \citep{zheng2023judging} documented position bias; \citet{shi2024judging} study it across 15 judges, and \citet{ye2024justice} quantify 12 bias types, though neither isolates individual style effects.
-Style bias as a separate source has received recent attention \citep{wu2023style,murugadoss2025sos,saito2023verbosity,li2026preference,soumik2026judging}; \citet{li2026preference} show that style-mediated \emph{preference leakage} propagates through evaluation pipelines.
+Style bias as a separate source has received recent attention \citep{wu2023style,feuer2025sos,saito2023verbosity,li2026preference,soumik2026judging}; \citet{li2026preference} show that style-mediated \emph{preference leakage} propagates through evaluation pipelines.
 Multi-feature frameworks such as CASSE \citep{casse2026concise} and FairJudge \citep{wang2026fairjudge} decompose style into finer dimensions but rely on correlational analyses that cannot distinguish causal style effects from content quality confounds.
-\citet{jeong2025comparative} identify the Comparative Trap---pairwise comparison may amplify style biases---which we address in \S\ref{sec:amplification}.
+\citet{jeong2025comparative} identify the Comparative Trap (pairwise comparison may amplify style biases), which we address in \S\ref{sec:amplification}.
 Unlike human evaluators, LLM judges acquire format-specific biases through RLHF training: pairwise comparison serves as the reward signal in DPO pipelines, while Likert scoring is used for evaluation, motivating independent quantification of the format gap.
 
 \paragraph{Measurement Format Sensitivity}

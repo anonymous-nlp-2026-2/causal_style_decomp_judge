@@ -1,10 +1,10 @@
 # Causal Style Decomposition for LLM-as-Judge Evaluation
 
-Code and paper for EMNLP 2026 submission: *The Likert Blindspot: How Evaluation Protocol Masks Style Bias in LLM Judges*.
+Code and paper for EMNLP 2026 submission: *The Likert Blindspot: Measurement-Mode Divergence in LLM Judge Style Evaluation*.
 
 ## Overview
 
-This repository provides the **RATE** (Rewrite-based ATE) pipeline for measuring style bias in LLM-as-Judge systems using causal counterfactual analysis. The method rewrites responses to flip a target style dimension (e.g., formal vs. casual) while preserving semantic content, then compares Likert and pairwise evaluation protocols to detect systematic biases.
+This repository provides the **CSD** (Controlled Style Decomposition) pipeline for measuring style bias in LLM-as-Judge systems. CSD is a black-box diagnostic that combines NLI-gated content control, per-axis style decomposition, and position-controlled pairwise comparison to reveal measurement-mode divergence: statistically significant pairwise sensitivity to style that is absent from Likert scoring on the same data (the *Likert Blindspot*). Across four target judges, two style axes, and three benchmarks, the divergence is confirmed by seven statistical methods and shown to be structural via scaled replication.
 
 ## Repository Structure
 

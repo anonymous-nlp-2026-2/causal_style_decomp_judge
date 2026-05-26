@@ -5,15 +5,16 @@
 \subsection{Statistical Framework}
 \label{sec:stat_framework}
 
-The primary family comprises six tests (three target judges $\times$ two axes), corrected via Holm-Bonferroni at $\alpha = 0.05$; Gemini-2.5-Flash serves as confirmatory replication and is excluded from family-wise error rate (FWER) control; as a sensitivity check, all eight tests remain significant under the expanded family (Appendix~\ref{app:holm8}).
+The primary family comprises six tests (three target judges $\times$ two axes), corrected via Holm-Bonferroni at $\alpha = 0.05$; Gemini-2.5-Flash serves as confirmatory replication and is excluded from family-wise error rate control; as a sensitivity check, all eight tests remain significant under the expanded family (Appendix~\ref{app:holm8}).
 Table~\ref{tab:main_results} reports both raw and adjusted $p$-values.
 Analyses outside this grid are classified as either \emph{exploratory} (NLI threshold sensitivity sweep, \S\ref{sec:nli_threshold}) or \emph{confirmatory} (consistency filter validation, \S\ref{sec:consistency}).
 Exploratory analyses use uncorrected $p$-values; confirmatory analyses (pipeline validity) are evaluated at $\alpha = 0.05$ without additional correction.
 Bradley-Terry parameters \citep{bradley1952rank,luce1959individual} are estimated via spectral initialization followed by minorization-maximization \citep{hunter2004mm}, using the \texttt{choix} Python library's default L2 regularization ($\alpha = 10^{-6}$).
-In binary-choice BT models, independence of irrelevant alternatives (IIA) is structurally satisfied; the direction asymmetry in Appendix~\ref{app:bt_gof} (formality: formal-origin 88.9\% vs.\ casual-origin 52.6\%, Fisher $p = 0.015$) reflects heterogeneous treatment effects rather than IIA violation.
+In binary-choice BT models, independence of irrelevant alternatives is structurally satisfied; the direction asymmetry in Appendix~\ref{app:bt_gof} (formality: formal-origin 88.9\% vs.\ casual-origin 52.6\%, Fisher $p = 0.015$) reflects heterogeneous treatment effects rather than a violation of this assumption.
 All bootstrap confidence intervals are percentile CIs from 10{,}000 pair-level resamples with seed 42; we verify bootstrap stability by confirming that halving the resample count changes interval widths by $<$1pp.
-GEE models use exchangeable working correlation with sandwich standard errors (robust to correlation misspecification), justified by near-zero estimated within-pair correlations ($\hat{\alpha} \in [-0.25, +0.11]$; Appendix~\ref{app:gee_diagnostics}).
-A prospective power analysis (Appendix~\ref{app:power_analysis}) confirms that our sample sizes ($n = 86$--$88$ pairs) provide $>$90\% power to detect BT effects of the observed magnitude ($P \geq 0.63$), whereas Likert requires $4$--$206\times$ the sample size for equivalent power (Figure~\ref{fig:power_curve}).
+GEE models use exchangeable working correlation with sandwich standard errors that are robust to correlation misspecification (Appendix~\ref{app:gee_diagnostics}).
+A prospective power analysis (Appendix~\ref{app:power_analysis}) confirms that our sample sizes ($n = 86$--$88$ pairs) provide $>$90\% power to detect BT effects of the observed magnitude ($P \geq 0.63$).
+Likert requires $4$--$206\times$ the sample size for equivalent power (Figure~\ref{fig:power_curve}).
 
 \paragraph{Model selection.}
 Target judges span four architectures from independent providers: GPT-4o (\texttt{2024-08-06}; OpenAI), Qwen3-32B-Instruct (Alibaba; also serving as rewriter), Llama-3.3-70B-Instruct (Meta), and Gemini-2.5-Flash (Google).
@@ -74,7 +75,7 @@ Applying RATE's Likert ATE methodology \citep{reber2025rate} to our formality st
 This is the Likert Blindspot: the same data, the same style intervention, two measurement instruments, yet one detects bias and the other does not.
 A $4\times$ scaled replication ($n = 355$) distinguishes measurement attenuation from insufficient power: the Likert effect size shrinks to $d = {-}0.025$ (near zero) while BT remains stable at $67.5\%$ ($p < 0.0001$). If the gap were merely statistical power, $d$ would remain non-zero at larger $n$.
 Bootstrap subsampling confirms $d$ remains near zero as $n$ grows (Appendix~\ref{app:bootstrap_attenuation}).
-Post hoc, attenuation follows a severity spectrum: complete at moderate bias ($d \to 0$, BT 63--67\%) and partial at stronger effects (${>}60\%$ loss, BT ${>}70\%$), explaining four cross-benchmark exceptions ($\ddagger$, Table~\ref{tab:cross_bench}).
+Across cells, attenuation follows a severity spectrum: complete at moderate bias ($d \to 0$, BT 63--67\%) and partial at stronger effects (${>}60\%$ loss, BT ${>}70\%$), explaining four cross-benchmark exceptions ($\ddagger$, Table~\ref{tab:cross_bench}).
 
 RATE and CSD are complementary (Likert ATE vs.\ forced-choice BT); the Blindspot arises from Likert tie rates of 58--73\%, unresolved by 100-point continuous scaling (all three judges $p > 0.15$; Appendix~\ref{app:likert100}).
 
@@ -86,9 +87,12 @@ Figure~\ref{fig:power_curve} plots detection probability at observed effect magn
 Under format equivalence, observing 8/8 primary cells as Blindspot has binomial probability $p = 0.004$; non-tie concordance (76.6\%, $p < .001$; \S\ref{sec:likert_pairwise}) provides a complementary formal test of format divergence.
 \paragraph{Interpreting the divergence.}
 The measurement-mode divergence admits three non-exclusive interpretations: (a)~\emph{Likert attenuation}, where tie inflation and residual signal loss reduce Likert sensitivity below detection thresholds; (b)~\emph{pairwise amplification}, where forced-choice comparison inflates micro-preferences into apparent biases \citep{jeong2025comparative}; (c)~\emph{construct divergence}, where the two formats measure different constructs (absolute quality vs.\ ordinal preference; \citealt{tripathi2025pairwise}).
-Six experimental controls (\S\ref{sec:amplification}) bound the amplification factor but cannot eliminate it; the attenuation evidence ($d \to 0$ at $n = 355$) is necessary but not sufficient for causal identification.
-Non-tie concordance analysis partially adjudicates: among 201 Likert non-tie pairs (pooled across judges and axes), 76.6\% agree with pairwise direction [70.3\%, 81.9\%], $p < 0.001$; point-biserial correlations are uniformly positive ($r = 0.20$--$0.45$, 7/9 significant; Appendix~\ref{app:concordance}), evidence more consistent with measurement attenuation than construct divergence, though partial construct divergence remains at weaker effect sizes.
-Claude's benchmark-dependent profile illustrates why aggregate BT is insufficient for bias attribution: LLMBar formality shows near-null sensitivity (Style OR n.s.) while AEval verbosity reveals significant sensitivity (Style OR $= 4.76$, $p < .001$), a pattern disambiguated only by per-axis GEE decomposition (\S\ref{sec:cross_judge}; Appendix~\ref{app:claude_tost}).
+Six experimental controls (\S\ref{sec:amplification}) bound the amplification factor but cannot eliminate it.
+The attenuation evidence ($d \to 0$ at $n = 355$) is consistent with Likert signal loss, but does not by itself rule out concurrent amplification or construct divergence.
+Non-tie concordance analysis partially adjudicates: among 201 Likert non-tie pairs (pooled across judges and axes), 76.6\% agree with pairwise direction [70.3\%, 81.9\%], $p < 0.001$.
+Point-biserial correlations are uniformly positive ($r = 0.20$--$0.45$, 7/9 significant; Appendix~\ref{app:concordance}), evidence more consistent with measurement attenuation than construct divergence, though partial construct divergence remains at weaker effect sizes.
+Claude's benchmark-dependent profile illustrates why aggregate BT is insufficient for bias attribution.
+On LLMBar, formality shows near-null sensitivity (Style OR n.s.), while on AlpacaEval, verbosity reveals significant sensitivity (Style OR $= 4.76$, $p < .001$)---a pattern disambiguated only by per-axis GEE decomposition (\S\ref{sec:cross_judge}; Appendix~\ref{app:claude_tost}).
 All three interpretations converge on one practical conclusion: single-format audits risk incomplete bias coverage; the Blindspot manifests in 10/14 bias-positive cells, with four exceptions ($\ddagger$) confirming effect-size dependence.
 For alignment pipelines where pairwise judgments serve as reward signals, this implies that biases embedded during RLHF training may go undetected by Likert-based evaluation at standard benchmark scales.
 
@@ -163,7 +167,8 @@ Claude Sonnet~4 shows near-null sensitivity on LLMBar for both axes (BT $\leq 0.
 Verbosity provides the strongest Blindspot: all four target judges show consistent preference (GPT-4o 76.0\%, Qwen3-32B 77.3\%, Llama-70B 73.5\%, Gemini 70.8\%; all $p \leq 0.0001$), while Likert ATE remains non-significant for all ($p = 0.284$--$0.403$).
 GEE confirms style dominance (Style OR $8.2$--$13.1$, all $p < .0001$; Orig OR $0.38$--$0.49$; Table~\ref{tab:gee}).
 Both rewriting directions favor verbose responses (90.7\%/80.6\%); length-controlled Style OR is unchanged ($<$2\%), and an independent GPT-4o rewriter bounds evaluator-producer overlap to a 22\% reduction (Appendix~\ref{app:rewriter_indep}).
-Length-controlled regression confirms 60\% of the Flesch-Kincaid (FK) cross-axis effect is mediated by sentence length (Sobel $z = 2.15$, $p = .031$); under the assumed causal structure (Figure~\ref{fig:dag}), FK acts as a plausible mediator ($S \to \text{FK} \to Y$; \citealp{pearl2009causality}), yielding a direct-effect Style OR of $2.15$ for GPT-4o (total OR $= 2.70$; Appendix~\ref{app:fk_length}).
+Length-controlled regression confirms that 60\% of the Flesch-Kincaid grade cross-axis effect is mediated by sentence length (Sobel $z = 2.15$, $p = .031$).
+Under the assumed causal structure (Figure~\ref{fig:dag}), Flesch-Kincaid grade acts as a plausible mediator ($S \to \text{FK} \to Y$; \citealp{pearl2009causality}), yielding a direct-effect Style OR of $2.15$ for GPT-4o (total OR $= 2.70$; Appendix~\ref{app:fk_length}).
 
 These per-axis patterns selectively replicate across benchmarks (6/24 possible cells; Figure~\ref{fig:cross_bench_heatmap}), targeting the strongest effects: Llama-70B formality on AlpacaEval (BT 75.0\%, Style OR $= 7.64$) is strong enough for Likert detection ($\ddagger$ rows), confirming the severity spectrum.
 The selective replication strategy prioritizes cells where effects are strongest, providing an informative lower bound on cross-benchmark generalization without requiring exhaustive evaluation of all judge--axis--benchmark combinations.
@@ -187,7 +192,7 @@ Annotators judged only 49--66\% of NLI-passed pairs as showing detectable style 
 \paragraph{Detection vs.\ amplification.}
 \label{sec:amplification}
 \citet{jeong2025comparative} show that pairwise comparison amplifies style biases (the Comparative Trap).
-The divergence cannot be definitively resolved without human ground-truth measurements; six controls bound amplification risk: (i)~NLI ablation reverses NLI-fail pairs (BT 41.7\%; Appendix~\ref{app:nli_ablation}); (ii)~Claude shows benchmark-dependent sensitivity (formality Style OR n.s.; AEval verbosity OR $= 4.76$, $p < .001$); (iii)~cross-axis BT variation inconsistent with uniform amplification; (iv)~rewriting artifact absorbed by GEE; (v)~debiased prompting ($-5.2$/$-13.1$pp), bounding the amplification factor at ${\sim}9$--$17\%$ of the total BT effect; (vi)~four-architecture replication with consistent GEE structure.
+The divergence cannot be definitively resolved without human ground-truth measurements; six controls bound amplification risk: (i)~NLI ablation reverses NLI-fail pairs (BT 41.7\%; Appendix~\ref{app:nli_ablation}); (ii)~Claude shows benchmark-dependent sensitivity (formality Style OR n.s.; AEval verbosity OR $= 4.76$, $p < .001$); (iii)~cross-axis BT variation (formality 57--70\%, verbosity 70--77\%, register 55--64\%) inconsistent with uniform amplification; (iv)~rewriting artifact absorbed by GEE; (v)~debiased prompting ($-5.2$/$-13.1$pp), bounding the amplification factor at ${\sim}9$--$17\%$ of the total BT effect; (vi)~four-architecture replication with consistent GEE structure.
 Register is exploratory with evaluator-producer overlap and judge-dependent effects (Table~\ref{tab:gee}).
 Same-style double-rewrite controls confirm that any residual rewriting artifact is absorbed by the GEE originality term rather than inflating the style coefficient.
 The combination of NLI validation and amplification controls establishes that while the exact magnitude of style sensitivity remains bounded rather than point-identified, the qualitative finding (systematic style preferences invisible to Likert) is robust across judges, axes, and measurement assumptions.
